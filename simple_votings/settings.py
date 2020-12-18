@@ -29,6 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'Insert secret key here and uncomment this variable'
+SECRET_KEY = 'IInsert secret key here and uncomment this variable'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -133,6 +134,7 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+AUTH_USER_MODEL = 'main.User'
 
 # Проверка тех, кто ленится указать корректный SECRET_KEY
 if SECRET_KEY == 'Insert secret key here and uncomment this variable':
