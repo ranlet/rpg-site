@@ -9,5 +9,4 @@
 
 Контекст должен быть размещён в комментариях к данной задаче.
 
-/label ~backend 
-/label ~architecture
+/label ~backend ~architecture
