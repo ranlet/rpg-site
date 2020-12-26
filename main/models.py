@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
 from django.db import models
 
 
@@ -7,4 +8,4 @@ class User(AbstractUser):
 
 
 class UserSettings(models.Model):
-    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
+    user = models.OneToOneField(to=get_user_model(), on_delete=models.CASCADE)

@@ -24,9 +24,8 @@
 
 7. Создать уникальный ключ приложения.  
    Генерация делается в консоли Python при помощи команд:
-   ```python
-   from django.core.management.utils import get_random_secret_key  
-   get_random_secret_key()
+   ```bash
+   python manage.py shell -c "from django.core.management.utils import get_random_secret_key; get_random_secret_key()"
    ```
    Далее полученное значение подставляется в соответствующую переменную.
    Внимание! Без выполнения этого пункта никакие команды далее не запустятся.
@@ -38,14 +37,10 @@
 
 8. Создать суперпользователя
    ```bash
-   $ python manage.py createsuperuser
-   Username (leave blank to use 'prom'): vasya
-   Email: 1@abc.net
-   Password: promprog
-   Password (repeat): promprog
+   python manage.py shell -c "from django.contrib.auth import get_user_model; get_user_model().objects.create_superuser('vasya', '1@abc.net', 'promprog')"
    ```
 
 9. Создать конфигурацию запуска в PyCharm (файл `manage.py`, опция `runserver`)
 
 Внимание! Создана отдельная модель пользователя в модуле `main`! 
-При создании ForeignKey'ев на User'а - использовать её!
+При создании ForeignKey'ев на User'а - использовать её при помощи встроенной функции `get_user_model`.
