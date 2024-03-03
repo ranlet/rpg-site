@@ -1,36 +1,37 @@
+import random
 import datetime
 
 from django.core.handlers.wsgi import WSGIRequest
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 
-
-def get_menu_context():
-    return [
-        {'url_name': 'index', 'name': 'Главная'},
-        {'url_name': 'time', 'name': 'Текущее время'},
-    ]
+import secrets
+import string
 
 
 def index_page(request: WSGIRequest):
     context = {
-        'menu': get_menu_context()
+        'pagename': 'Покупка предметов'
     }
     return render(request, 'pages/index.html', context)
 
 
-def time_page(request: WSGIRequest):
-    context = {
-        'pagename': 'Текущее время',
-        'time': datetime.datetime.now().time(),
-        'menu': get_menu_context()
-    }
-    return render(request, 'pages/time.html', context)
-
-
 def login_page(request: WSGIRequest):
     context = {
-        'pagename': 'Текущее время',
-        'time': datetime.datetime.now().time(),
-        'menu': get_menu_context()
+        'pagename': 'Войти',
+
     }
-    return render(request, 'pages/time.html', context)
+
+    if request.method == 'POST':
+        username = request.POST['login']
+        password = request.POST['passwd']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            return render(request, 'registration/login.html', context)
+
+    return render(request, 'registration/login.html', context)
