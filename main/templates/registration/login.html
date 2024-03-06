@@ -1,27 +1,56 @@
 <html lang="ru">
 <head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <title>{{ pagename }}</title>
-  <link rel="stylesheet" href="../static/css/login.css">
+  {% include "../templs/style.html" %}
 </head>
 <header>
-    {% include "../templs/login_header.html" %}
-    {% include "../templs/profile_btn.html" %}
+
 </header>
 <body>
-    <form class="form" action="" method="POST">
-      {% csrf_token %}
+    <div class="form">
 
-      <div class="form-floating mb-3">
-        <input name="login" type="text" class="form-control" id="floatingInput" placeholder="name@example.com" required>
-        <label for="floatingInput">Логин</label>
-      </div>
-      <div class="form-floating">
-        <input name="passwd" type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
-        <label for="floatingPassword">Пароль</label>
-      </div>
-      <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 15px;">Войти</button>
-      <p class="exists"><a href="../register">Нет аккаунта? Зарегистрироваться</a></p>
-    </form>
+      <v-card theme="dark" style="box-shadow: 0 0 12px #000;">
+        <v-tabs
+          v-model="logregtab"
+          bg-color="primary"
+
+        >
+          <v-tab value="log">Войти</v-tab>
+          <v-tab value="reg">Регистрация</v-tab>
+        </v-tabs>
+
+        <v-card-text>
+
+          <v-window v-model="logregtab">
+            <v-window-item value="log">
+              <form method="POST">
+                {% csrf_token %}
+                <v-text-field label="Логин" variant="solo-filled" name="logname" required></v-text-field>
+                <v-text-field type="password" label="Пароль" variant="solo-filled" name="logpass" required></v-text-field>
+                <v-btn variant="tonal" type="submit" style="width: 100%; margin-top: 15px; height: 50px; margin-top: 50px;">Войти</v-btn>
+              </form>
+            </v-window-item>
+
+            <v-window-item value="reg">
+              <form method="POST">
+                {% csrf_token %}
+                <v-text-field label="Придумайте логин" variant="solo-filled" name="regname" required></v-text-field>
+                <v-text-field label="Придумайте пароль" variant="solo-filled" name="regpass" required></v-text-field>
+                <v-text-field label="Введите Имя" variant="solo-filled" name="regfirst" required></v-text-field>
+                <v-text-field label="Введите Фамилию" variant="solo-filled" name="reglast" required></v-text-field>
+                <v-btn variant="tonal" type="submit" style="width: 100%; margin-top: 15px; height: 50px; margin-top: 50px;">Зарегистрироваться</v-btn>
+              </form>
+            </v-window-item>
+
+          </v-window>
+
+        </v-card-text>
+
+
+      </v-card>
+
+
+    </div>
 </body>
+<script src="../static/js/script.js"></script>
+</html>

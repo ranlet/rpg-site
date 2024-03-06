@@ -5,7 +5,6 @@ from django.db import models
 
 
 class Profile(models.Model):
-    bio = models.TextField(max_length=500)
     user = models.ForeignKey(User, models.CASCADE)  # Он хранит пароль/логин и прочее
     image = models.FileField(upload_to="profile_img/", blank=True, null=True)
 
