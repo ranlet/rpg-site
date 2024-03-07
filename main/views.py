@@ -13,8 +13,6 @@ import secrets
 import string
 
 
-
-
 def register(username, email, password, first_name=None, last_name=None):
     user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
     return user
@@ -84,3 +82,16 @@ def login_page(request: WSGIRequest):
                 redirect('/')
 
     return render(request, 'registration/login.html', context)
+
+
+@login_required
+def profile_page(request: WSGIRequest):
+    context = {
+        'user': request.user,
+        'profile': Profile.objects.get(user=request.user)
+    }
+
+    if request.method == 'POST':
+        pass
+
+    return render(request, 'pages/profile.html', context)

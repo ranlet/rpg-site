@@ -121,6 +121,9 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = f"{BASE_DIR}/media"
 # AUTH_USER_MODEL = 'main.User'  # Если вы хотите
 
 # Проверка тех, кто ленится указать корректный SECRET_KEY
