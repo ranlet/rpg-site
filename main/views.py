@@ -24,7 +24,8 @@ def register(username, email, password, first_name=None, last_name=None):
 def index_page(request: WSGIRequest):
     context = {
         'pagename': 'Покупка предметов',
-        'user': request.user
+        'user': request.user,
+        'profile': Profile.objects.get(user=request.user)
     }
     return render(request, 'pages/index.html', context)
 
@@ -55,17 +56,18 @@ def login_page(request: WSGIRequest):
             username = request.POST['regname']
             password = request.POST['regpass']
 
-            checking = User.objects.get(username=username)
+            checking = User.objects.filter(username=username)
 
-            if checking is None:
-                first_name = ''
-                last_name = ''
-                if 'regfirst' in request.POST and 'reglast' in request.POST:
-                    first_name = request.POST['regfirst']
-                    last_name = request.POST['reglast']
-                else:
-                    first_name = 'Имя'
-                    last_name = 'Фамилия'
+            if not checking:
+                first_name = 'Имя'
+                last_name = 'Фамилия'
+                if 'regfirst' in request.POST:
+                    if request.POST['regfirst'] != '':
+                        first_name = request.POST['regfirst']
+
+                if 'reglast' in request.POST:
+                    if request.POST['reglast'] != '':
+                        last_name = request.POST['reglast']
 
                 user = register(
                     username,

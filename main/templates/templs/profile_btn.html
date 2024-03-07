@@ -4,7 +4,7 @@
       <template v-slot:activator="{ props }">
         <v-btn icon v-bind="props">
           <v-avatar color="brown" size="large">
-            <span class="text-h5">{{ user.first_name.0 }} {{ user.last_name.0 }}</span>
+            <span class="text-h5">{{ user.first_name.0 }}{{ user.last_name.0 }}</span>
           </v-avatar>
         </v-btn>
       </template>
@@ -12,16 +12,18 @@
         <v-card-text>
           <div class="mx-auto text-center">
             <v-avatar color="brown">
-              <span class="text-h5">{{ user.first_name.0 }} {{ user.last_name.0 }}</span>
+              <span class="text-h5">{{ user.first_name.0 }}{{ user.last_name.0 }}</span>
             </v-avatar>
             <h3>{{ user.first_name }} {{ user.last_name }}</h3>
             <p class="text-caption mt-1">{{ user.email }}</p>
+            <v-divider class="my-3"></v-divider>
+            <p class="text-h6" style="font-family: 'JetBrains Mono'">Баланс: {{ profile.balance }}</p>
             <v-divider class="my-3"></v-divider>
             <v-btn variant="text" rounded>Редактировать профиль</v-btn>
             <v-divider class="my-3"></v-divider>
             <v-btn variant="text" rounded>Инвентарь</v-btn>
             <v-divider class="my-3"></v-divider>
-            <a href="../logout"><v-btn variant="text" rounded>Выйти</v-btn></a>
+            <a href="../logout" style="color: red;"><v-btn variant="text" rounded>Выйти</v-btn></a>
           </div>
         </v-card-text>
       </v-card>
