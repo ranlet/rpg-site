@@ -92,6 +92,26 @@ def profile_page(request: WSGIRequest):
     }
 
     if request.method == 'POST':
-        pass
+        user = User.objects.get(username=request.user.username)
+        profile = Profile.objects.get(user=request.user)
+
+        if request.POST['firstname'] != '':
+            user.first_name = request.POST['firstname']
+        if request.POST['lastname'] != '':
+            user.last_name = request.POST['lastname']
+
+        if 'filename' in request.FILES:
+            if request.FILES['filename'] != '':
+                profile.image = request.FILES['filename']
+
+        user.save()
+        profile.save()
+
+        context = {
+            'user': user,
+            'profile': profile
+        }
+
+        return render(request, 'pages/profile.html', context)
 
     return render(request, 'pages/profile.html', context)

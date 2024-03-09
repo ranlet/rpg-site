@@ -4,7 +4,10 @@
       <template v-slot:activator="{ props }">
         <v-btn icon v-bind="props">
           <v-avatar color="brown" size="large">
-            <span class="text-h5">{{ user.first_name.0 }}{{ user.last_name.0 }}</span>
+            <v-img
+              alt="Avatar"
+              src="{% if profile.image %}{{ profile.image.url }}{% else %}https://cdn.vuetifyjs.com/images/parallax/material.jpg{% endif %}"
+            ></v-img>
           </v-avatar>
         </v-btn>
       </template>
@@ -12,7 +15,10 @@
         <v-card-text>
           <div class="mx-auto text-center">
             <v-avatar color="brown">
-              <span class="text-h5">{{ user.first_name.0 }}{{ user.last_name.0 }}</span>
+              <v-img
+                alt="Avatar"
+                src="{% if profile.image %}{{ profile.image.url }}{% else %}https://cdn.vuetifyjs.com/images/parallax/material.jpg{% endif %}"
+              ></v-img>
             </v-avatar>
             <h3>{{ user.first_name }} {{ user.last_name }}</h3>
             <p class="text-caption mt-1">{{ user.email }}</p>
