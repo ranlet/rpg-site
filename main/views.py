@@ -13,6 +13,17 @@ import secrets
 import string
 
 
+def get_random_name(): # Функция для генерации случайных url длиной 10 символов для новых предметов
+    letters = string.ascii_letters
+    digits = string.digits
+    alphabet = letters + digits
+    pwd_length = 10
+    pwd = ''
+    for i in range(pwd_length):
+        pwd += ''.join(secrets.choice(alphabet))
+    return pwd
+
+
 def register(username, email, password, first_name=None, last_name=None):
     user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
     return user
@@ -115,3 +126,10 @@ def profile_page(request: WSGIRequest):
         return render(request, 'pages/profile.html', context)
 
     return render(request, 'pages/profile.html', context)
+
+
+def item_page(request: WSGIRequest, url):
+    context = {
+
+    }
+    return render(request, 'pages/item.html', context)

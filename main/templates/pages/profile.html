@@ -12,14 +12,16 @@
 <form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   <v-card theme="dark" style="margin: 80px 0 20px 50px; width: 70%; padding: 50px 50px 20px 50px">
+
   <v-img
-    :width="400"
-    :height="400"
+    :width="300"
+    :height="300"
     aspect-ratio="1/1"
     cover
     src="{% if profile.image %}{{ profile.image.url }}{% else %}https://cdn.vuetifyjs.com/images/parallax/material.jpg{% endif %}"
     style="border-radius: 5px"
   ></v-img>
+  <p class="text-h6" style="font-family: 'JetBrains Mono'; margin-top: 25px">Баланс: {{ profile.balance }}</p>
   <v-file-input name="filename" theme="dark" label="Файл изображения" variant="solo-filled"  style="margin: 30px 0 5px 0; border-radius: 20px; width: 100%" accept="image/*"></v-file-input>
   <v-text-field name="firstname" label="Текущее имя: {{ user.first_name }}" variant="solo-filled" style="margin-top: 5px; border-radius: 20px; width: 100%"></v-text-field>
   <v-text-field name="lastname" label="Текущая фамилия: {{ user.last_name }}" variant="solo-filled" style="margin-top: 5px; margin-bottom: 5px; border-radius: 20px; width: 100%"></v-text-field>
