@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Покупка</title>
+  {% include "../templs/style.html" %}
 </head>
+<header>
+  {% include "../templs/profile_btn.html" %}
+</header>
 <body>
+  <div style="display: flex; width: 700px; margin: 100px 0 0 50px;"></div>
+    <v-card style="width: 350px">
+      <v-img
+
+        src="{{ item.item_image }}"
+        cover
+        width="200"
+      >
+    </v-card>
+    <v-card style="width: 50%">
+      <v-card-title>{{ item.item_name }}</v-card-title>
+    </v-card>
+  </div>
+
 
 </body>
+<script src="../static/js/script.js"></script>
 </html>

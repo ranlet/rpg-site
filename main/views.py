@@ -2,7 +2,7 @@ import random
 import datetime
 
 from django.contrib.auth.models import User
-from main.models import Profile
+from main.models import Profile, Item
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -13,7 +13,7 @@ import secrets
 import string
 
 
-def get_random_name(): # Функция для генерации случайных url длиной 10 символов для новых предметов
+def get_random_name():  # Функция для генерации случайных url длиной 10 символов для новых предметов
     letters = string.ascii_letters
     digits = string.digits
     alphabet = letters + digits
@@ -31,10 +31,43 @@ def register(username, email, password, first_name=None, last_name=None):
 
 @login_required
 def index_page(request: WSGIRequest):
+    first_money = second_money = third_money = None
+
+    if not Item.objects.filter(item_type=3):
+        first_money = Item.objects.create(
+            item_url="iOpsGgMKtt",
+            item_name="1000 валюты",
+            item_image="../static/default_img/money.jpg",
+            item_description="Валюта для покупки предметов",
+            item_type=3
+        )
+
+        second_money = Item.objects.create(
+            item_url="iOpsGgMKuu",
+            item_name="4000 валюты",
+            item_image="../static/default_img/money.jpg",
+            item_description="Валюта для покупки предметов",
+            item_type=3
+        )
+
+        third_money = Item.objects.create(
+            item_url="iOpsGgMKgg",
+            item_name="10000 валюты",
+            item_image="../static/default_img/money.jpg",
+            item_description="Валюта для покупки предметов",
+            item_type=3
+        )
+
+    else:
+        first_money = Item.objects.get(item_url="iOpsGgMKtt")
+        second_money = Item.objects.get(item_url="iOpsGgMKuu")
+        third_money = Item.objects.get(item_url="iOpsGgMKgg")
+
     context = {
         'pagename': 'Покупка предметов',
         'user': request.user,
-        'profile': Profile.objects.get(user=request.user)
+        'profile': Profile.objects.get(user=request.user),
+        'money': [first_money, second_money, third_money]
     }
     return render(request, 'pages/index.html', context)
 
@@ -129,7 +162,14 @@ def profile_page(request: WSGIRequest):
 
 
 def item_page(request: WSGIRequest, url):
-    context = {
 
+    obj = Item.objects.get(item_url=url)
+    user = User.objects.get(username=request.user.username)
+    profile = Profile.objects.get(user=request.user)
+
+    context = {
+        'item': obj,
+        'user': user,
+        'profile': profile
     }
     return render(request, 'pages/item.html', context)

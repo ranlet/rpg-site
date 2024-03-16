@@ -5,21 +5,20 @@
   <v-img
     class="align-end text-white"
     height="325"
-    src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+    src="{{ item.item_image }}"
     cover
   >
-    <v-card-title>Имя предмета</v-card-title>
   </v-img>
 
 
 
-  <v-card-text>
-    <div>Описание предмета</div>
-  </v-card-text>
+  <v-card-title>{{ item.item_name }}</v-card-title>
 
   <v-card-actions>
     <v-btn color="orange">
-      Купить
+      <a href="/item/{{ item.item_url }}" style="text-decoration: none; color: #FF9800">
+        Купить
+      </a>
     </v-btn>
   </v-card-actions>
 </v-card>

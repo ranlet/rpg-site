@@ -11,7 +11,8 @@ class Profile(models.Model):
 
 
 class Item(models.Model):
-    url = models.TextField(max_length=10)
-    name = models.TextField(max_length=100)
-    image = models.FileField(upload_to="profile_img/", blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    item_url = models.TextField(max_length=10)
+    item_name = models.TextField(max_length=100)
+    item_image = models.FileField(upload_to="profile_img/", blank=True, null=True)
+    item_description = models.TextField(blank=True, null=True)
+    item_type = models.IntegerField(max_length=1, null=True, blank=True)

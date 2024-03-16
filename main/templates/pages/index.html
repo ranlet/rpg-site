@@ -90,14 +90,9 @@
             :items="['1']"
           >
             <v-card flat style="display: flex;">
+              {% for item in money %}
                   {% include "../templs/shop_item.html" %}
-                  {% include "../templs/shop_item.html" %}
-                  {% include "../templs/shop_item.html" %}
-            </v-card>
-            <v-card flat style="display: flex;">
-                  {% include "../templs/shop_item.html" %}
-                  {% include "../templs/shop_item.html" %}
-                  {% include "../templs/shop_item.html" %}
+              {% endfor %}
             </v-card>
           </v-virtual-scroll>
 
