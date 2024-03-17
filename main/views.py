@@ -29,8 +29,7 @@ def register(username, email, password, first_name=None, last_name=None):
     return user
 
 
-@login_required
-def index_page(request: WSGIRequest):
+def default_data():
     first_money = second_money = third_money = None
 
     if not Item.objects.filter(item_type=3):
@@ -62,12 +61,22 @@ def index_page(request: WSGIRequest):
         first_money = Item.objects.get(item_url="iOpsGgMKtt")
         second_money = Item.objects.get(item_url="iOpsGgMKuu")
         third_money = Item.objects.get(item_url="iOpsGgMKgg")
+    return {
+        'skins': None,
+        'weapons': None,
+        'money': [first_money, second_money, third_money]
+    }
+
+
+@login_required
+def index_page(request: WSGIRequest):
+    def_data = default_data()
 
     context = {
         'pagename': 'Покупка предметов',
         'user': request.user,
         'profile': Profile.objects.get(user=request.user),
-        'money': [first_money, second_money, third_money]
+        'money': def_data['money']
     }
     return render(request, 'pages/index.html', context)
 
@@ -162,7 +171,6 @@ def profile_page(request: WSGIRequest):
 
 
 def item_page(request: WSGIRequest, url):
-
     obj = Item.objects.get(item_url=url)
     user = User.objects.get(username=request.user.username)
     profile = Profile.objects.get(user=request.user)
