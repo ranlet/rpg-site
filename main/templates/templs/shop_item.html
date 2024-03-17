@@ -15,10 +15,32 @@
   <v-card-title>{{ item.item_name }}</v-card-title>
 
   <v-card-actions>
-    <v-btn color="orange">
-      <a href="/item/{{ item.item_url }}" style="text-decoration: none; color: #FF9800">
-        Купить
-      </a>
-    </v-btn>
+    <v-dialog max-width="500">
+      <template v-slot:activator="{ props: activatorProps }">
+        <v-btn
+          v-bind="activatorProps"
+          color="surface-variant"
+          text="Купить"
+          variant="flat"
+        ></v-btn>
+      </template>
+    
+      <template v-slot:default="{ isActive }">
+        <v-card title="Внимание">
+          <v-card-text>
+            Вы уверены?
+          </v-card-text>
+    
+          <v-card-actions>
+            <v-spacer></v-spacer>
+    
+            <v-btn
+              text="Купить"
+              @click="isActive.value = false"
+            ></v-btn>
+          </v-card-actions>
+        </v-card>
+      </template>
+    </v-dialog>
   </v-card-actions>
 </v-card>
