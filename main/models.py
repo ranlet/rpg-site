@@ -16,3 +16,4 @@ class Item(models.Model):
     item_image = models.FileField(upload_to="profile_img/", blank=True, null=True)
     item_description = models.TextField(blank=True, null=True)
     item_type = models.IntegerField(max_length=1, null=True, blank=True)
+    item_price = models.IntegerField(null=True, blank=True)

@@ -10,11 +10,11 @@
 <body>
 
 
-<v-card style="margin: 100px auto 0 auto; width: 80%; min-height: 700px; box-shadow: 0 0 12px #000;" theme="dark">
+<v-card style="margin: 90px auto 0 auto; width: 80%; min-height: 700px; box-shadow: 0 0 12px #000;" theme="dark">
     <v-toolbar
-      color="primary"
+      color="transparent"
     >
-      <v-toolbar-title>Покупка предметов</v-toolbar-title>
+      <v-toolbar-title style="font-weight: 600; font-family: 'JetBrains Mono'; font-size: 22px;">Покупка предметов</v-toolbar-title>
     </v-toolbar>
     <div class="d-flex flex-row">
       <v-tabs
@@ -54,11 +54,6 @@
                   {% include "../templs/shop_item.html" %}
                   {% include "../templs/shop_item.html" %}
             </v-card>
-            <v-card flat style="display: flex;">
-                  {% include "../templs/shop_item.html" %}
-                  {% include "../templs/shop_item.html" %}
-                  {% include "../templs/shop_item.html" %}
-            </v-card>
           </v-virtual-scroll>
 
         </v-window-item>
@@ -69,11 +64,6 @@
             :height="700"
             :items="['1']"
           >
-            <v-card flat style="display: flex;">
-                  {% include "../templs/shop_item.html" %}
-                  {% include "../templs/shop_item.html" %}
-                  {% include "../templs/shop_item.html" %}
-            </v-card>
             <v-card flat style="display: flex;">
                   {% include "../templs/shop_item.html" %}
                   {% include "../templs/shop_item.html" %}

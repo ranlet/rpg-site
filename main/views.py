@@ -38,7 +38,8 @@ def default_data():
             item_name="1000 валюты",
             item_image="../static/default_img/money.jpg",
             item_description="Валюта для покупки предметов",
-            item_type=3
+            item_type=3,
+            item_price=0
         )
 
         second_money = Item.objects.create(
@@ -46,7 +47,8 @@ def default_data():
             item_name="4000 валюты",
             item_image="../static/default_img/money.jpg",
             item_description="Валюта для покупки предметов",
-            item_type=3
+            item_type=3,
+            item_price=0
         )
 
         third_money = Item.objects.create(
@@ -54,7 +56,8 @@ def default_data():
             item_name="10000 валюты",
             item_image="../static/default_img/money.jpg",
             item_description="Валюта для покупки предметов",
-            item_type=3
+            item_type=3,
+            item_price=0
         )
 
     else:
