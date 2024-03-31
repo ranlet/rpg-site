@@ -109,7 +109,7 @@ def profile_page(request: WSGIRequest):
 
     return render(request, 'pages/profile.html', context)
 
-
+@login_required
 def item_page(request: WSGIRequest, url):
     obj = Item.objects.get(item_url=url)
     user = User.objects.get(username=request.user.username)
@@ -120,4 +120,12 @@ def item_page(request: WSGIRequest, url):
         'user': user,
         'profile': profile
     }
+
+    if request.method == 'POST':
+        if obj.item_type == 3:
+            price = int(obj.item_name.split()[0])
+            profile.balance = profile.balance + price
+            profile.save()
+            return redirect('/')
+
     return render(request, 'pages/item.html', context)
