@@ -1,74 +1,11 @@
-import random
-import datetime
-
 from django.contrib.auth.models import User
 from main.models import Profile, Item
 from django.core.handlers.wsgi import WSGIRequest
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
-import secrets
-import string
-
-
-def get_random_name():  # Функция для генерации случайных url длиной 10 символов для новых предметов
-    letters = string.ascii_letters
-    digits = string.digits
-    alphabet = letters + digits
-    pwd_length = 10
-    pwd = ''
-    for i in range(pwd_length):
-        pwd += ''.join(secrets.choice(alphabet))
-    return pwd
-
-
-def register(username, email, password, first_name=None, last_name=None):
-    user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
-    return user
-
-
-def default_data():
-    first_money = second_money = third_money = None
-
-    if not Item.objects.filter(item_type=3):
-        first_money = Item.objects.create(
-            item_url="iOpsGgMKtt",
-            item_name="1000 валюты",
-            item_image="../static/default_img/money.jpg",
-            item_description="Валюта для покупки предметов",
-            item_type=3,
-            item_price=0
-        )
-
-        second_money = Item.objects.create(
-            item_url="iOpsGgMKuu",
-            item_name="4000 валюты",
-            item_image="../static/default_img/money.jpg",
-            item_description="Валюта для покупки предметов",
-            item_type=3,
-            item_price=0
-        )
-
-        third_money = Item.objects.create(
-            item_url="iOpsGgMKgg",
-            item_name="10000 валюты",
-            item_image="../static/default_img/money.jpg",
-            item_description="Валюта для покупки предметов",
-            item_type=3,
-            item_price=0
-        )
-
-    else:
-        first_money = Item.objects.get(item_url="iOpsGgMKtt")
-        second_money = Item.objects.get(item_url="iOpsGgMKuu")
-        third_money = Item.objects.get(item_url="iOpsGgMKgg")
-    return {
-        'skins': None,
-        'weapons': None,
-        'money': [first_money, second_money, third_money]
-    }
+from main.tools.tools import default_data, register
 
 
 @login_required
@@ -93,49 +30,49 @@ def logout_page(request):
 def login_page(request: WSGIRequest):
     context = {
         'pagename': 'Войти',
-
     }
 
-    if request.method == 'POST':
-        if 'logname' in request.POST and 'logpass' in request.POST:
-            username = request.POST['logname']
-            password = request.POST['logpass']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('/')
-            else:
-                return render(request, 'registration/login.html', context)
-        elif 'regname' in request.POST and 'regpass' in request.POST:
-            username = request.POST['regname']
-            password = request.POST['regpass']
+    if request.method == 'GET':
+        return render(request, 'registration/login.html', context)
 
-            checking = User.objects.filter(username=username)
+    if 'logname' in request.POST and 'logpass' in request.POST:
+        username = request.POST['logname']
+        password = request.POST['logpass']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        return render(request, 'registration/login.html', context)
+    elif 'regname' in request.POST and 'regpass' in request.POST:
+        username = request.POST['regname']
+        password = request.POST['regpass']
 
-            if not checking:
-                first_name = 'Имя'
-                last_name = 'Фамилия'
-                if 'regfirst' in request.POST:
-                    if request.POST['regfirst'] != '':
-                        first_name = request.POST['regfirst']
+        checking = User.objects.filter(username=username)
 
-                if 'reglast' in request.POST:
-                    if request.POST['reglast'] != '':
-                        last_name = request.POST['reglast']
+        if not checking:
+            first_name = 'Имя'
+            last_name = 'Фамилия'
+            if 'regfirst' in request.POST:
+                if request.POST['regfirst'] != '':
+                    first_name = request.POST['regfirst']
 
-                user = register(
-                    username,
-                    username + '@rpg.proj',
-                    password,
-                    first_name,
-                    last_name
-                )
+            if 'reglast' in request.POST:
+                if request.POST['reglast'] != '':
+                    last_name = request.POST['reglast']
 
-                profile = Profile()
-                profile.user = user
-                profile.save()
-            else:
-                redirect('/')
+            user = register(
+                username,
+                username + '@rpg.proj',
+                password,
+                first_name,
+                last_name
+            )
+
+            profile = Profile()
+            profile.user = user
+            profile.save()
+        else:
+            redirect('/')
 
     return render(request, 'registration/login.html', context)
 
