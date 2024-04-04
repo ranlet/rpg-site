@@ -4,7 +4,6 @@
 >
   <v-img
     class="align-end text-white"
-    height="400"
     src="{{ item.item_image }}"
     cover
   >
@@ -13,33 +12,11 @@
   <v-card-title>{{ item.item_name }}</v-card-title>
 
   <v-card-actions>
-    <v-dialog max-width="500">
-      <template v-slot:activator="{ props: activatorProps }">
-        <v-btn
-          v-bind="activatorProps"
-          color="orange"
-          text="Купить"
-
-        ></v-btn>
-      </template>
-
-      <template v-slot:default="{ isActive }">
-        <v-card title="Покупка предмета">
-          <v-card-text>
-            Купить {{ item.item_name }}?
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <a href="/item/{{ item.item_url }}" style="text-decoration: none; color: #FF9800;">
-              <v-btn style="font-family: JetBrains Mono; color: rgb(48, 209, 88);">
-                  Перейти к оплате
-              </v-btn>
-            </a>
-          </v-card-actions>
-        </v-card>
-      </template>
-    </v-dialog>
+    <a href="/item/{{ item.item_url }}" style="text-decoration: none; color: #FF9800;">
+      <v-btn style="font-family: JetBrains Mono;" color="orange">
+          Купить
+      </v-btn>
+    </a>
   </v-card-actions>
 
 </v-card>

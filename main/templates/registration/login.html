@@ -7,6 +7,7 @@
 
 </header>
 <body>
+
     <div class="form">
 
       <v-card theme="dark" style="box-shadow: 0 0 12px #000;">
@@ -27,8 +28,10 @@
                 {% csrf_token %}
                 <v-text-field label="Логин" variant="solo-filled" name="logname" required></v-text-field>
                 <v-text-field type="password" label="Пароль" variant="solo-filled" name="logpass" required></v-text-field>
-                <v-btn variant="tonal" type="submit" style="width: 100%; margin-top: 15px; height: 50px; margin-top: 50px;">Войти</v-btn>
+                <v-btn variant="tonal" type="submit" style="width: 100%; margin-top: 15px; height: 50px; margin-top: 30px;">Войти</v-btn>
               </form>
+
+
             </v-window-item>
 
             <v-window-item value="reg">
@@ -38,7 +41,7 @@
                 <v-text-field label="Придумайте пароль" variant="solo-filled" name="regpass" required></v-text-field>
                 <v-text-field label="Введите Имя" variant="solo-filled" name="regfirst"></v-text-field>
                 <v-text-field label="Введите Фамилию" variant="solo-filled" name="reglast"></v-text-field>
-                <v-btn variant="tonal" type="submit" style="width: 100%; margin-top: 15px; height: 50px; margin-top: 50px;">Зарегистрироваться</v-btn>
+                <v-btn variant="tonal" type="submit" style="width: 100%; margin-top: 15px; height: 50px; margin-top: 30px;">Зарегистрироваться</v-btn>
               </form>
             </v-window-item>
 
@@ -48,9 +51,29 @@
 
 
       </v-card>
+      {% if wronglogpass %}
+      <v-alert
+        color="error"
+        icon="$error"
+        title="Неправильный логин или пароль"
+        text="Введите правильный логин и пароль или зарегистрируйтесь"
+        style="z-index: 50000; width: 100%; margin-top: 20px;"
+      ></v-alert>
+      {% else %}
+      {% endif %}
 
-
+      {% if userexist %}
+      <v-alert
+        color="warning"
+        icon="$warning"
+        title="Пользователь с таким именем существует"
+        text="Придумайте другой логин"
+        style="z-index: 50000; width: 100%; margin-top: 20px;"
+      ></v-alert>
+      {% else %}
+      {% endif %}
     </div>
+
 </body>
 <script src="../static/js/script.js"></script>
 </html>

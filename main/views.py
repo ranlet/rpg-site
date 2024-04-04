@@ -16,7 +16,9 @@ def index_page(request: WSGIRequest):
         'pagename': 'Покупка предметов',
         'user': request.user,
         'profile': Profile.objects.get(user=request.user),
-        'money': def_data['money']
+        'money': def_data['money'],
+        'skins': def_data['skins'],
+        'weapons': def_data['weapons']
     }
     return render(request, 'pages/index.html', context)
 
@@ -29,7 +31,8 @@ def logout_page(request):
 
 def login_page(request: WSGIRequest):
     context = {
-        'pagename': 'Войти',
+        'wronglogpass': False,
+        'userexist': False,
     }
 
     if request.method == 'GET':
@@ -42,7 +45,11 @@ def login_page(request: WSGIRequest):
         if user is not None:
             login(request, user)
             return redirect('/')
-        return render(request, 'registration/login.html', context)
+        return render(request, 'registration/login.html', {
+            'wronglogpass': True,
+            'userexist': False,
+        })
+
     elif 'regname' in request.POST and 'regpass' in request.POST:
         username = request.POST['regname']
         password = request.POST['regpass']
@@ -72,7 +79,10 @@ def login_page(request: WSGIRequest):
             profile.user = user
             profile.save()
         else:
-            redirect('/')
+            return render(request, 'registration/login.html', {
+                'wronglogpass': False,
+                'userexist': True,
+            })
 
     return render(request, 'registration/login.html', context)
 

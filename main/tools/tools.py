@@ -18,44 +18,49 @@ def get_random_name():  # Функция для генерации случай�
 
 
 def default_data():
-    first_money = second_money = third_money = None
+    if not Item.objects.filter(item_type=2):
+        Item.objects.create(
+            item_url=get_random_name(),
+            item_name="Посох",
+            item_image="../static/default_img/magic.png",
+            item_description="Волшебный посох",
+            item_type=2,
+            item_price=3000
+        )
+
+        Item.objects.create(
+            item_url=get_random_name(),
+            item_name="Меч",
+            item_image="../static/default_img/blade.png",
+            item_description="Волшебный посох",
+            item_type=2,
+            item_price=5000
+        )
+
+        Item.objects.create(
+            item_url=get_random_name(),
+            item_name="Пистолет",
+            item_image="../static/default_img/pistol.png",
+            item_description="Мощный пистолет",
+            item_type=2,
+            item_price=1000
+        )
 
     if not Item.objects.filter(item_type=3):
-        first_money = Item.objects.create(
-            item_url="iOpsGgMKtt",
-            item_name="1000 валюты",
-            item_image="../static/default_img/money.jpg",
-            item_description="Валюта для покупки предметов",
-            item_type=3,
-            item_price=0
-        )
+        for price in ['1000', '4000', '10000']:
+            Item.objects.create(
+                item_url=get_random_name(),
+                item_name=f"{price} валюты",
+                item_image="../static/default_img/money.png",
+                item_description="Валюта для покупки предметов",
+                item_type=3,
+                item_price=0
+            )
 
-        second_money = Item.objects.create(
-            item_url="iOpsGgMKuu",
-            item_name="4000 валюты",
-            item_image="../static/default_img/money.jpg",
-            item_description="Валюта для покупки предметов",
-            item_type=3,
-            item_price=0
-        )
-
-        third_money = Item.objects.create(
-            item_url="iOpsGgMKgg",
-            item_name="10000 валюты",
-            item_image="../static/default_img/money.jpg",
-            item_description="Валюта для покупки предметов",
-            item_type=3,
-            item_price=0
-        )
-
-    else:
-        first_money = Item.objects.get(item_url="iOpsGgMKtt")
-        second_money = Item.objects.get(item_url="iOpsGgMKuu")
-        third_money = Item.objects.get(item_url="iOpsGgMKgg")
     return {
-        'skins': None,
-        'weapons': None,
-        'money': [first_money, second_money, third_money]
+        'skins': Item.objects.filter(item_type=1),
+        'weapons': Item.objects.filter(item_type=2),
+        'money': Item.objects.filter(item_type=3)
     }
 
 

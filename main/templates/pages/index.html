@@ -50,9 +50,9 @@
             :items="['1']"
           >
             <v-card flat style="display: flex;">
-                  {% include "../templs/shop_item.html" %}
-                  {% include "../templs/shop_item.html" %}
-                  {% include "../templs/shop_item.html" %}
+                  {% for item in skins %}
+                      {% include "../templs/shop_item.html" %}
+                  {% endfor %}
             </v-card>
           </v-virtual-scroll>
 
@@ -65,9 +65,9 @@
             :items="['1']"
           >
             <v-card flat style="display: flex;">
-                  {% include "../templs/shop_item.html" %}
-                  {% include "../templs/shop_item.html" %}
-                  {% include "../templs/shop_item.html" %}
+                  {% for item in weapons %}
+                      {% include "../templs/shop_item.html" %}
+                  {% endfor %}
             </v-card>
           </v-virtual-scroll>
 
