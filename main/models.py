@@ -8,6 +8,7 @@ class Profile(models.Model):
     user = models.ForeignKey(User, models.CASCADE)  # Он хранит пароль/логин и прочее
     image = models.FileField(upload_to="profile_img/", blank=True, null=True)
     balance = models.IntegerField(default=10000)
+    items = models.TextField(blank=True, null=True, default="")
 
 
 class Item(models.Model):

@@ -47,14 +47,14 @@ def default_data():
         )
 
     if not Item.objects.filter(item_type=3):
-        for price in ['1000', '4000', '10000']:
+        for price in [1000, 4000, 10000]:
             Item.objects.create(
                 item_url=get_random_name(),
                 item_name=f"{price} валюты",
                 item_image="../static/default_img/money.png",
                 item_description="Валюта для покупки предметов",
                 item_type=3,
-                item_price=0
+                item_price=price
             )
 
     return {
