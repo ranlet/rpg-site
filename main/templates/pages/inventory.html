@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Инвентарь</title>
+  {% include "../templs/style.html" %}
+</head>
+<header>
+  {% include "../templs/profile_btn.html" %}
+</header>
+<body>
+
+
+<v-card style="margin: 90px auto 0 auto; width: 80%; min-height: 700px; box-shadow: 0 0 12px #000;" theme="dark">
+    <v-toolbar
+      color="transparent"
+    >
+      <v-toolbar-title style="font-weight: 600; font-family: 'JetBrains Mono'; font-size: 22px;">Инвентарь</v-toolbar-title>
+    </v-toolbar>
+    <div class="d-flex flex-row">
+      <v-tabs
+        v-model="tab"
+        direction="vertical"
+      >
+        <v-tab value="option-1" color="red">
+          <v-icon start>
+            mdi-human
+          </v-icon>
+          Скины
+        </v-tab>
+        <v-tab value="option-2" color="yellow">
+          <v-icon start>
+            mdi-sword-cross
+          </v-icon>
+          Оружие
+        </v-tab>
+      </v-tabs>
+      <v-window v-model="tab" style="width: 100%">
+        <v-window-item value="option-1">
+
+          <v-virtual-scroll
+            :height="700"
+            :items="['1']"
+          >
+            <v-card flat style="display: flex;">
+                  {% for item in skins %}
+                      {% include "../templs/inventory_item.html" %}
+                  {% endfor %}
+            </v-card>
+          </v-virtual-scroll>
+
+        </v-window-item>
+
+        <v-window-item value="option-2">
+
+          <v-virtual-scroll
+            :height="700"
+            :items="['1']"
+          >
+            <v-card flat style="display: flex;">
+                  {% for item in weapons %}
+                      {% include "../templs/inventory_item.html" %}
+                  {% endfor %}
+            </v-card>
+          </v-virtual-scroll>
+
+        </v-window-item>
+      </v-window>
+    </div>
+  </v-card>
+
+
+
+
+</body>
+<script src="../static/js/script.js"></script>
+</html>

@@ -10,15 +10,29 @@ from main.tools.tools import default_data, register
 
 @login_required
 def index_page(request: WSGIRequest):
+    profile = Profile.objects.get(user=request.user)
     def_data = default_data()
+    default_skins = def_data['skins']
+    default_weapons = def_data['weapons']
+
+    skins = []
+    weapons = []
+    obj_str = profile.items.strip().split()
+
+    for skin in default_skins:
+        if skin.item_url not in obj_str:
+            skins.append(skin)
+    for weapon in default_weapons:
+        if weapon.item_url not in obj_str:
+            weapons.append(weapon)
 
     context = {
         'pagename': 'Покупка предметов',
         'user': request.user,
         'profile': Profile.objects.get(user=request.user),
         'money': def_data['money'],
-        'skins': def_data['skins'],
-        'weapons': def_data['weapons']
+        'skins': skins,
+        'weapons': weapons
     }
     return render(request, 'pages/index.html', context)
 
@@ -31,8 +45,7 @@ def logout_page(request):
 
 def login_page(request: WSGIRequest):
     context = {
-        'wronglogpass': False,
-        'userexist': False,
+        'err_reason': 0
     }
 
     if request.method == 'GET':
@@ -46,8 +59,7 @@ def login_page(request: WSGIRequest):
             login(request, user)
             return redirect('/')
         return render(request, 'registration/login.html', {
-            'wronglogpass': True,
-            'userexist': False,
+            'err_reason': 1
         })
 
     elif 'regname' in request.POST and 'regpass' in request.POST:
@@ -78,10 +90,12 @@ def login_page(request: WSGIRequest):
             profile = Profile()
             profile.user = user
             profile.save()
+            return render(request, 'registration/login.html', {
+                'err_reason': 3
+            })
         else:
             return render(request, 'registration/login.html', {
-                'wronglogpass': False,
-                'userexist': True,
+                'err_reason': 2
             })
 
     return render(request, 'registration/login.html', context)
@@ -145,3 +159,29 @@ def item_page(request: WSGIRequest, url):
             return redirect('/')
 
     return render(request, 'pages/item.html', context)
+
+
+@login_required
+def inventory_page(request: WSGIRequest):
+    user = User.objects.get(username=request.user.username)
+    profile = Profile.objects.get(user=request.user)
+
+    skins = []
+    weapons = []
+    obj_str = profile.items.strip().split()
+    print(obj_str)
+    for url in obj_str:
+        item = Item.objects.get(item_url=url)
+        if item.item_type == 1:
+            skins.append(item)
+        elif item.item_type == 2:
+            weapons.append(item)
+
+    context = {
+        'user': user,
+        'profile': profile,
+        'skins': skins,
+        'weapons': weapons
+    }
+
+    return render(request, 'pages/inventory.html', context)
