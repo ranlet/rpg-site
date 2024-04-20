@@ -10,38 +10,48 @@
 <body>
 
 
-<v-card style="margin: 90px auto 0 auto; width: 80%; min-height: 700px; box-shadow: 0 0 12px #000;" theme="dark">
+<v-card style="position: fixed; min-width: 200px; width: 5%; height: 100%; z-index: 10000; background: #1C1A24; top: 60px; color: white;">
+  <v-tabs
+        v-model="tab"
+        direction="vertical"
+        style="font-size: 20px; color: grey;"
+      >
+        <v-tab value="option-1" color="red" style="font-size: 22px; justify-content: normal;">
+          <v-icon start style="margin-right: 30px;">
+            mdi-human
+          </v-icon>
+          Скины
+        </v-tab>
+        <v-tab value="option-2" color="yellow" style="font-size: 22px; justify-content: normal;">
+          <v-icon start style="margin-right: 15px;">
+            mdi-sword-cross
+          </v-icon>
+          Оружие
+        </v-tab>
+        <v-tab value="option-3" color="green" style="font-size: 22px; justify-content: normal;">
+          <v-icon start style="margin-right: 15px;">
+            mdi-cash
+          </v-icon>
+          Валюта
+        </v-tab>
+      </v-tabs>
+  <v-img
+    class="align-end text-white"
+    src="../static/default_img/icon.png"
+    style="width: 100px; height: 100px; bottom: 100px; position: absolute;"
+    cover
+  >
+  </v-img>
+</v-card>
+
+
+<v-card style="margin: 90px auto 0 auto; width: 70%; min-height: 700px; box-shadow: 0 0 12px #000; position: fixed; margin: 100px 10% 0 10%" theme="dark">
     <v-toolbar
       color="transparent"
     >
       <v-toolbar-title style="font-weight: 600; font-family: 'JetBrains Mono'; font-size: 22px;">Покупка предметов</v-toolbar-title>
     </v-toolbar>
-    <div class="d-flex flex-row">
-      <v-tabs
-        v-model="tab"
-        direction="vertical"
-      >
-        <v-tab value="option-1" color="red">
-          <v-icon start>
-            mdi-human
-          </v-icon>
-          Скины
-        </v-tab>
-        <v-tab value="option-2" color="yellow">
-          <v-icon start>
-            mdi-sword-cross
-          </v-icon>
-          Оружие
-        </v-tab>
-        <v-tab value="option-3" color="green">
-          <v-icon start>
-            mdi-cash
-          </v-icon>
-          Валюта
-        </v-tab>
 
-
-      </v-tabs>
       <v-window v-model="tab" style="width: 100%">
         <v-window-item value="option-1">
 
@@ -90,7 +100,6 @@
 
 
       </v-window>
-    </div>
   </v-card>
 
 
