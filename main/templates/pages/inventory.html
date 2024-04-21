@@ -10,30 +10,47 @@
 <body>
 
 
-<v-card style="margin: 90px auto 0 auto; width: 80%; min-height: 700px; box-shadow: 0 0 12px #000;" theme="dark">
-    <v-toolbar
-      color="transparent"
-    >
-      <v-toolbar-title style="font-weight: 600; font-family: 'JetBrains Mono'; font-size: 22px;">Инвентарь</v-toolbar-title>
-    </v-toolbar>
-    <div class="d-flex flex-row">
-      <v-tabs
-        v-model="tab"
-        direction="vertical"
-      >
-        <v-tab value="option-1" color="red">
-          <v-icon start>
+<v-card style="position: fixed; min-width: 200px; width: 5%; height: 100%; z-index: 10000; background: #1C1A24; color: white; top: 0; margin-top: 60px">
+  <div style="width: 100%;">
+    <v-tabs
+          v-model="tab"
+          direction="vertical"
+          style="font-size: 20px; color: grey;"
+        >
+        <v-tab value="option-1" color="red" style="font-size: 22px; justify-content: normal;">
+          <v-icon start style="margin-right: 30px;">
             mdi-human
           </v-icon>
           Скины
         </v-tab>
-        <v-tab value="option-2" color="yellow">
-          <v-icon start>
+        <v-tab value="option-2" color="yellow" style="font-size: 22px; justify-content: normal;">
+          <v-icon start style="margin-right: 15px;">
             mdi-sword-cross
           </v-icon>
           Оружие
         </v-tab>
-      </v-tabs>
+    </v-tabs>
+  </div>
+  <div style="width: 100%; height: 200px; min-height: 220px; position: absolute; bottom: 20px;">
+  <v-img
+    class="align-end text-white"
+    src="../static/default_img/icon.png"
+    style="width: 100px; height: 100px; margin: auto"
+    cover
+  >
+  </v-img>
+    <p style="font-size: 15px; opacity: 0.5; margin: auto; text-align: center">RPG-site©<br>MSHP, 2024</p>
+  </div>
+</v-card>
+
+
+<v-card style="margin: 90px 100px 0 250px; width: 80%; min-height: 700px; box-shadow: 0 0 12px #000; position: fixed;" theme="dark">
+    <v-toolbar
+      color="transparent"
+    >
+      <v-toolbar-title style="font-weight: 600; font-family: 'JetBrains Mono'; font-size: 22px;">Покупка предметов</v-toolbar-title>
+    </v-toolbar>
+
       <v-window v-model="tab" style="width: 100%">
         <v-window-item value="option-1">
 
@@ -41,11 +58,13 @@
             :height="700"
             :items="['1']"
           >
-            <v-card flat style="display: flex;">
-                  {% for item in skins %}
-                      {% include "../templs/inventory_item.html" %}
-                  {% endfor %}
-            </v-card>
+            {% for block in skins %}
+              <v-card flat style="display: flex;">
+                {% for item in block %}
+                        {% include "../templs/shop_item.html" %}
+                {% endfor %}
+              </v-card>
+            {% endfor %}
           </v-virtual-scroll>
 
         </v-window-item>
@@ -56,19 +75,20 @@
             :height="700"
             :items="['1']"
           >
-            <v-card flat style="display: flex;">
-                  {% for item in weapons %}
-                      {% include "../templs/inventory_item.html" %}
-                  {% endfor %}
-            </v-card>
+            {% for block in weapons %}
+              <v-card flat style="display: flex;">
+                {% for item in block %}
+                        {% include "../templs/shop_item.html" %}
+                {% endfor %}
+              </v-card>
+            {% endfor %}
           </v-virtual-scroll>
 
         </v-window-item>
+
+
       </v-window>
-    </div>
   </v-card>
-
-
 
 
 </body>

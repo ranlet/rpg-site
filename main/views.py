@@ -182,8 +182,8 @@ def inventory_page(request: WSGIRequest):
     context = {
         'user': user,
         'profile': profile,
-        'skins': skins,
-        'weapons': weapons
+        'skins': list_splitter(skins),
+        'weapons': list_splitter(weapons)
     }
 
     return render(request, 'pages/inventory.html', context)
