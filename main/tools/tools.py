@@ -18,6 +18,17 @@ def get_random_name():  # Функция для генерации случай�
 
 
 def default_data():
+    if not Item.objects.filter(item_type=1):  # Создание заглушек
+        for i in range(10):
+            Item.objects.create(
+                item_url=get_random_name(),
+                item_name="Скин-заглушка",
+                item_image="../static/default_img/icon.png",
+                item_description="Скин-заглушка",
+                item_type=1,
+                item_price=1000
+            )
+
     if not Item.objects.filter(item_type=2):
         Item.objects.create(
             item_url=get_random_name(),
@@ -32,7 +43,7 @@ def default_data():
             item_url=get_random_name(),
             item_name="Меч",
             item_image="../static/default_img/blade.png",
-            item_description="Волшебный посох",
+            item_description="Большой меч",
             item_type=2,
             item_price=5000
         )
@@ -45,6 +56,15 @@ def default_data():
             item_type=2,
             item_price=1000
         )
+        for i in range(7):
+            Item.objects.create(
+                item_url=get_random_name(),
+                item_name="Оружие-заглушка",
+                item_image="../static/default_img/icon.png",
+                item_description="Оружие-заглушка",
+                item_type=2,
+                item_price=500
+            )
 
     if not Item.objects.filter(item_type=3):
         for price in [1000, 4000, 10000]:
@@ -67,3 +87,8 @@ def default_data():
 def register(username, email, password, first_name=None, last_name=None):
     user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
     return user
+
+
+def list_splitter(l):
+    n = 3
+    return [l[i:i + n] for i in range(0, len(l), n)]

@@ -5,8 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
-from main.tools.tools import default_data, register
-
+from main.tools.tools import default_data, register, list_splitter
 
 @login_required
 def index_page(request: WSGIRequest):
@@ -31,8 +30,8 @@ def index_page(request: WSGIRequest):
         'user': request.user,
         'profile': Profile.objects.get(user=request.user),
         'money': def_data['money'],
-        'skins': skins,
-        'weapons': weapons
+        'skins': list_splitter(skins),
+        'weapons': list_splitter(weapons)
     }
     return render(request, 'pages/index.html', context)
 

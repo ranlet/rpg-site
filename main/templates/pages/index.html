@@ -45,7 +45,7 @@
 </v-card>
 
 
-<v-card style="margin: 90px auto 0 auto; width: 70%; min-height: 700px; box-shadow: 0 0 12px #000; position: fixed; margin: 100px 10% 0 10%" theme="dark">
+<v-card style="margin: 90px 100px 0 250px; width: 80%; min-height: 700px; box-shadow: 0 0 12px #000; position: fixed;" theme="dark">
     <v-toolbar
       color="transparent"
     >
@@ -59,11 +59,13 @@
             :height="700"
             :items="['1']"
           >
-            <v-card flat style="display: flex;">
-                  {% for item in skins %}
-                      {% include "../templs/shop_item.html" %}
-                  {% endfor %}
-            </v-card>
+            {% for block in skins %}
+              <v-card flat style="display: flex;">
+                {% for item in block %}
+                        {% include "../templs/shop_item.html" %}
+                {% endfor %}
+              </v-card>
+            {% endfor %}
           </v-virtual-scroll>
 
         </v-window-item>
@@ -74,11 +76,13 @@
             :height="700"
             :items="['1']"
           >
-            <v-card flat style="display: flex;">
-                  {% for item in weapons %}
-                      {% include "../templs/shop_item.html" %}
-                  {% endfor %}
-            </v-card>
+            {% for block in weapons %}
+              <v-card flat style="display: flex;">
+                {% for item in block %}
+                        {% include "../templs/shop_item.html" %}
+                {% endfor %}
+              </v-card>
+            {% endfor %}
           </v-virtual-scroll>
 
         </v-window-item>
