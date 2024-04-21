@@ -170,7 +170,10 @@ def inventory_page(request: WSGIRequest):
     obj_str = profile.items.strip().split()
     print(obj_str)
     for url in obj_str:
-        item = Item.objects.get(item_url=url)
+        try:
+            item = Item.objects.get(item_url=url)
+        except Item.DoesNotExist:
+            return None
         if item.item_type == 1:
             skins.append(item)
         elif item.item_type == 2:
