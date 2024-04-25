@@ -43,52 +43,46 @@
   </div>
 </v-card>
 
+<div class="scroll_block">
+  <v-window v-model="tab" style="border-radius: 10px;">
+    <v-window-item value="option-1">
 
-<v-card style="margin: 90px 100px 0 250px; width: 80%; min-height: 700px; box-shadow: 0 0 12px #000; position: fixed;" theme="dark">
-    <v-toolbar
-      color="transparent"
-    >
-      <v-toolbar-title style="font-weight: 600; font-family: 'JetBrains Mono'; font-size: 22px;">Покупка предметов</v-toolbar-title>
-    </v-toolbar>
-
-      <v-window v-model="tab" style="width: 100%">
-        <v-window-item value="option-1">
-
-          <v-virtual-scroll
-            :height="700"
-            :items="['1']"
-          >
-            {% for block in skins %}
-              <v-card flat style="display: flex;">
-                {% for item in block %}
-                        {% include "../templs/shop_item.html" %}
-                {% endfor %}
-              </v-card>
+      <v-virtual-scroll
+        :height="800"
+        :items="['1']"
+        class="pretty_scroll"
+      >
+        {% for block in skins %}
+          <div style="display: flex; background-color: #282633;">
+            {% for item in block %}
+                    {% include "../templs/inventory_item.html" %}
             {% endfor %}
-          </v-virtual-scroll>
+          </div>
+        {% endfor %}
+      </v-virtual-scroll>
 
-        </v-window-item>
+    </v-window-item>
 
-        <v-window-item value="option-2">
+    <v-window-item value="option-2">
 
-          <v-virtual-scroll
-            :height="700"
-            :items="['1']"
-          >
-            {% for block in weapons %}
-              <v-card flat style="display: flex;">
-                {% for item in block %}
-                        {% include "../templs/shop_item.html" %}
-                {% endfor %}
-              </v-card>
+      <v-virtual-scroll
+        :height="800"
+        :items="['1']"
+        class="pretty_scroll"
+      >
+        {% for block in weapons %}
+          <div style="display: flex; background-color: #282633;">
+            {% for item in block %}
+                    {% include "../templs/inventory_item.html" %}
             {% endfor %}
-          </v-virtual-scroll>
+          </div>
+        {% endfor %}
+      </v-virtual-scroll>
 
-        </v-window-item>
+    </v-window-item>
 
-
-      </v-window>
-  </v-card>
+  </v-window>
+</div>
 
 
 </body>

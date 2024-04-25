@@ -1,20 +1,23 @@
-<v-card
-
-  style="margin: 15px; width: 33%; min-width: 100px"
+<div
+  style="margin: 10px; width: 16.66%; min-width: 100px; background-color: #312f3d; color: white; border-radius: 10px;"
 >
   <v-img
     class="align-end text-white"
     src="{{ item.item_image }}"
     cover
+    style="border-radius: 10px 10px 0 0"
   >
   </v-img>
 
-  <v-card-title>{{ item.item_name }}</v-card-title>
+  <v-card-title>
+    {{ item.item_name }}<br>
+    <span style="font-weight: 300; font-size: 19px;">{{ item.item_price }}</span>
+  </v-card-title>
 
   <v-card-actions>
-    <v-btn style="font-family: JetBrains Mono;" color="gray" disabled>
+    <v-btn class="buy_btn" style="height: 50px" disabled>
         Приобретено
     </v-btn>
   </v-card-actions>
 
-</v-card>
+</div>

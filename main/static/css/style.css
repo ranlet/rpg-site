@@ -1,7 +1,13 @@
+html {
+  margin: 0;
+  overflow: hidden
+}
+
 body {
-    background-color: #282633;
-    font-family: 'JetBrains Mono';
-    margin: 0;
+  background-color: #1C1A24;
+  font-family: 'JetBrains Mono';
+  margin: 0;
+  overflow: hidden
 }
 
 
@@ -95,4 +101,32 @@ header{
 
 .inline{
   display: inline-block;
+}
+
+.buy_btn {
+  font-family: JetBrains Mono;
+  width: 100%;
+  background-color: #403D4D;
+  transition: 300ms;
+}
+
+.buy_btn:hover {
+  background-color: #806CF5;
+  color: white;
+  transition: 300ms;
+}
+
+.scroll_block {
+  position: fixed;
+  height: 800px;
+  width: 100%;
+  top: 80px;
+  left: 200px;
+
+  padding-right: 230px;
+}
+
+.pretty_scroll {
+  scrollbar-color: hsla(0, 0%, 100%, .1) transparent;
+  scrollbar-width: thin;
 }
