@@ -202,10 +202,15 @@ def inventory_page(request: WSGIRequest):
 def sell_page(request: WSGIRequest, url):
     user = User.objects.get(username=request.user.username)
     profile = Profile.objects.get(user=request.user)
+    obj = Inventory.objects.get(item_unique_id=url)
 
     context = {
         'user': user,
         'profile': profile,
+        'item': obj
     }
+
+    if request.method == 'POST':
+        print(request.POST)
 
     return render(request, 'pages/sell.html', context)

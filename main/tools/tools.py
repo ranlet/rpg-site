@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from main.models import Item
 
 
-def get_random_name(n):  # Функция для генерации случайных url длиной 10 символов для новых предметов
+def get_random_name(n):  # Функция для генерации случайных url/id длиной n символов для новых предметов
     letters = string.ascii_letters
     digits = string.digits
     alphabet = letters + digits
