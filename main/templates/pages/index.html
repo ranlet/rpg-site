@@ -35,6 +35,12 @@
           </v-icon>
           Валюта
         </v-tab>
+        <v-tab value="option-4" color="white" style="font-size: 22px; justify-content: normal;">
+          <v-icon start style="margin-right: 15px;">
+            mdi-shopping-outline
+          </v-icon>
+          Маркет
+        </v-tab>
     </v-tabs>
   </div>
   <div style="width: 100%; height: 200px; min-height: 220px; position: absolute; bottom: 20px;">
@@ -58,13 +64,15 @@
         :items="['1']"
         class="pretty_scroll"
       >
-        {% for block in skins %}
-          <div style="display: flex; background-color: #282633;">
-            {% for item in block %}
-                    {% include "../templs/shop_item.html" %}
-            {% endfor %}
-          </div>
-        {% endfor %}
+        <div style="height: 800px; background-color: #282633; margin-top: -1px;">
+          {% for block in skins %}
+            <div style="display: flex; background-color: #282633;">
+              {% for item in block %}
+                      {% include "../templs/shop_item.html" %}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
       </v-virtual-scroll>
 
     </v-window-item>
@@ -76,13 +84,15 @@
         :items="['1']"
         class="pretty_scroll"
       >
-        {% for block in weapons %}
-          <div style="display: flex; background-color: #282633;">
-            {% for item in block %}
-                    {% include "../templs/shop_item.html" %}
-            {% endfor %}
-          </div>
-        {% endfor %}
+        <div style="height: 800px; background-color: #282633;">
+          {% for block in weapons %}
+            <div style="display: flex; background-color: #282633;">
+              {% for item in block %}
+                      {% include "../templs/shop_item.html" %}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
       </v-virtual-scroll>
 
     </v-window-item>
@@ -92,11 +102,30 @@
       <v-virtual-scroll
         :height="800"
         :items="['1']"
+        class="pretty_scroll"
       >
-        <div style="display: flex; background-color: #282633;">
-          {% for item in money %}
-                  {% include "../templs/shop_item.html" %}
+        <div style="height: 800px; background-color: #282633;">
+          {% for block in money %}
+            <div style="display: flex; background-color: #282633;">
+              {% for item in block %}
+                      {% include "../templs/shop_item.html" %}
+              {% endfor %}
+            </div>
           {% endfor %}
+        </div>
+      </v-virtual-scroll>
+
+    </v-window-item>
+
+    <v-window-item value="option-4">
+
+      <v-virtual-scroll
+        :height="800"
+        :items="['1']"
+        class="pretty_scroll"
+      >
+        <div style="height: 800px; background-color: #282633;">
+
         </div>
       </v-virtual-scroll>
 

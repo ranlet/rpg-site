@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
-from main.models import Profile, Item
+from main.models import Profile, Item, Inventory
 from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
-from main.tools.tools import default_data, register, list_splitter
+from main.tools.tools import default_data, register, list_splitter, get_random_name
+
 
 @login_required
 def index_page(request: WSGIRequest):
@@ -29,7 +30,7 @@ def index_page(request: WSGIRequest):
         'pagename': 'Покупка предметов',
         'user': request.user,
         'profile': Profile.objects.get(user=request.user),
-        'money': def_data['money'],
+        'money': list_splitter(def_data['money']),
         'skins': list_splitter(skins),
         'weapons': list_splitter(weapons)
     }
@@ -147,9 +148,17 @@ def item_page(request: WSGIRequest, url):
 
     if request.method == 'POST':
         if obj.item_type == 1 or obj.item_type == 2:
-            profile.items += obj.item_url + " "
+
+            new = Inventory.objects.create(  # Создание уникального предмета
+                item=obj,
+                item_owner=user,
+                item_unique_id=get_random_name(12),
+            )
+
+            profile.items += new.item_unique_id + " "
             profile.balance -= obj.item_price
             profile.save()
+
             return redirect('/')
 
         elif obj.item_type == 3:
@@ -168,16 +177,16 @@ def inventory_page(request: WSGIRequest):
     skins = []
     weapons = []
     obj_str = profile.items.strip().split()
+
     print(obj_str)
+
     for url in obj_str:
-        try:
-            item = Item.objects.get(item_url=url)
-        except Item.DoesNotExist:
-            return None
+        inventory_item = Inventory.objects.get(item_unique_id=url)  # Уникальный предмет пользователя
+        item = inventory_item.item  # Получаем сам предмет
         if item.item_type == 1:
-            skins.append(item)
+            skins.append(inventory_item)
         elif item.item_type == 2:
-            weapons.append(item)
+            weapons.append(inventory_item)
 
     context = {
         'user': user,
@@ -187,3 +196,16 @@ def inventory_page(request: WSGIRequest):
     }
 
     return render(request, 'pages/inventory.html', context)
+
+
+@login_required
+def sell_page(request: WSGIRequest, url):
+    user = User.objects.get(username=request.user.username)
+    profile = Profile.objects.get(user=request.user)
+
+    context = {
+        'user': user,
+        'profile': profile,
+    }
+
+    return render(request, 'pages/sell.html', context)

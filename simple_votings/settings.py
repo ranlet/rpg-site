@@ -3,7 +3,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Эта настройка отключена в шаблоне, чтобы все проекты обязательно указывали свой индивидуальный SECRET_KEY.
 # Генерация делается в консоли Python при помощи команд:
 from django.core.management.utils import get_random_secret_key
@@ -17,7 +16,6 @@ SECRET_KEY = get_random_secret_key()
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -64,7 +62,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'simple_votings.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -74,7 +71,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -94,7 +90,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -109,7 +104,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -121,9 +115,11 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-
 MEDIA_URL = "/media/"
 MEDIA_ROOT = f"{BASE_DIR}/media"
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 # AUTH_USER_MODEL = 'main.User'  # Если вы хотите
 
 # Проверка тех, кто ленится указать корректный SECRET_KEY

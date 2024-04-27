@@ -1,22 +1,20 @@
-<div
-  style="margin: 10px; width: 16.66%; min-width: 100px; background-color: #312f3d; color: white; border-radius: 10px;"
->
+<div class="inventory_item">
   <v-img
     class="align-end text-white"
-    src="{{ item.item_image }}"
+    src="{{ item.item.item_image }}"
     cover
     style="border-radius: 10px 10px 0 0"
   >
   </v-img>
 
   <v-card-title>
-    {{ item.item_name }}<br>
-    <span style="font-weight: 300; font-size: 19px;">{{ item.item_price }}</span>
+    {{ item.item.item_name }}<br>
+    <span style="font-weight: 600; font-size: 13px; opacity: 0.2;">Уникальный id: {{ item.item_unique_id }}</span>
   </v-card-title>
 
   <v-card-actions>
-    <v-btn class="buy_btn" style="height: 50px" disabled>
-        Приобретено
+    <v-btn class="sold_btn" style="height: 50px;" href="/sell/{{ item.item_unique_id }}" color="green">
+        Продать
     </v-btn>
   </v-card-actions>
 

@@ -9,17 +9,16 @@
 </header>
 <body>
   <form style="width: 100%;" method="POST" id="frm">
-    <v-card style="padding: 30px; margin: 100px 40px 0 40px; min-width: 1000px; box-shadow: 0 0 12px #000;display: flex;" theme="dark">
-      <div style="width: 35%;">
+    <div style="padding: 30px; margin: 80px 40px 0 40px; min-width: 1000px; display: flex; background-color: #312f3d; color: white; border-radius: 10px;">
+      <div style="width: 25%;">
         <v-img
           src="{{ item.item_image }}"
           cover
-          width="500"
-          style="border-radius: 10px;"
+          style="border-radius: 10px; width: 100%"
         ></v-img>
-        <v-card-title style="margin-top: 30px">{{ item.item_name }}</v-card-title>
+        <v-card-title style="margin-top: 25px; font-size: 25px; text-align: center; width: 100%">{{ item.item_name }}</v-card-title>
       </div>
-      <div style="width: 65%; position: relative; margin-left: 30px">
+      <div style="width: 75%; position: relative; margin-left: 30px">
         <p style="font-size: 20px;">Описание: {{ item.item_description }}</p>
         {% csrf_token %}
         <v-btn type="submit" color="orange" variant="tonal" theme="primary" style="width: 100%; height: 80px; bottom: 0; position: absolute; font-size: 25px;">
@@ -32,22 +31,22 @@
 
 
 
-      <v-dialog max-width="500">
+      <v-dialog max-width="400">
         <template v-slot:activator="{ props: activatorProps }">
-          <v-btn color="orange" variant="tonal" theme="primary" style="width: 100%; height: 80px; bottom: 0; position: absolute; font-size: 25px;" v-bind="activatorProps">
+          <v-btn color="orange" variant="tonal" style="width: 100%; height: 80px; bottom: 0; position: absolute; font-size: 25px;" v-bind="activatorProps">
             Купить за {{ item.item_price }}
           </v-btn>
         </template>
 
         <template v-slot:default="{ isActive }">
-          <v-card title="Покупка предмета">
+          <v-card title="Покупка предмета" theme="dark">
             <v-card-text>
               {{ item.item_name }}
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn style="font-family: JetBrains Mono; color: rgb(48, 209, 88);" type="submit" form="frm">
+              <v-btn style="font-family: JetBrains Mono; color: rgb(48, 209, 88); width: 100%; height: 60px; background-color: rgba(255, 255, 255, 0.1); font-size: 18px;" type="submit" form="frm">
                   Купить за {{ item.item_price }}?
               </v-btn>
             </v-card-actions>
@@ -63,7 +62,7 @@
 
 
       </div>
-    </v-card>
+    </div>
   </form>
 
 
