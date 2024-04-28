@@ -156,7 +156,10 @@ def item_page(request: WSGIRequest, url):
             )
 
             profile.items += new.item_unique_id + " "
-            profile.balance -= obj.item_price
+            if obj.item_price > profile.balance:
+                None
+            else:
+                profile.balance -= obj.item_price
             profile.save()
 
             return redirect('/')
