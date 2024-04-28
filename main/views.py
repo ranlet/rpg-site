@@ -214,3 +214,9 @@ def sell_page(request: WSGIRequest, url):
         print(request.POST)
 
     return render(request, 'pages/sell.html', context)
+
+
+def main_page(request: WSGIRequest):
+    context = {
+    }
+    return render(request, 'pages/main_page.html', context)
