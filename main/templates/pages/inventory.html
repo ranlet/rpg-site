@@ -56,7 +56,10 @@
           {% for block in skins %}
             <div style="display: flex; background-color: #282633;">
               {% for item in block %}
+                  {% if not item.on_market %}
                       {% include "../templs/inventory_item.html" %}
+                  {% else %}
+                  {% endif %}
               {% endfor %}
             </div>
           {% endfor %}
@@ -76,7 +79,10 @@
           {% for block in weapons %}
             <div style="display: flex; background-color: #282633;">
               {% for item in block %}
+                  {% if not item.on_market %}
                       {% include "../templs/inventory_item.html" %}
+                  {% else %}
+                  {% endif %}
               {% endfor %}
             </div>
           {% endfor %}

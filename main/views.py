@@ -32,7 +32,8 @@ def index_page(request: WSGIRequest):
         'profile': Profile.objects.get(user=request.user),
         'money': list_splitter(def_data['money']),
         'skins': list_splitter(skins),
-        'weapons': list_splitter(weapons)
+        'weapons': list_splitter(weapons),
+        'market': list_splitter(Inventory.objects.filter(on_market=True))
     }
     return render(request, 'pages/index.html', context)
 
@@ -212,5 +213,9 @@ def sell_page(request: WSGIRequest, url):
 
     if request.method == 'POST':
         print(request.POST)
+
+        obj.item_price = int(request.POST['price'])
+        obj.on_market = True
+        obj.save()
 
     return render(request, 'pages/sell.html', context)

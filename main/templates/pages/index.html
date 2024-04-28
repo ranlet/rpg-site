@@ -125,7 +125,13 @@
         class="pretty_scroll"
       >
         <div style="height: 800px; background-color: #282633;">
-
+          {% for block in market %}
+            <div style="display: flex; background-color: #282633;">
+              {% for item in block %}
+                  {% include "../templs/market_item.html" %}
+              {% endfor %}
+            </div>
+          {% endfor %}
         </div>
       </v-virtual-scroll>
 
