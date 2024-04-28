@@ -4,6 +4,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 from main.tools.tools import default_data, register, list_splitter, get_random_name
 
@@ -143,8 +144,15 @@ def item_page(request: WSGIRequest, url):
     context = {
         'item': obj,
         'user': user,
-        'profile': profile
+        'profile': profile,
+        'can_buy': True,
+
     }
+    # { % if can_buy %}
+    # ...
+    # { % else %}
+    # ...
+    # { % endif %}
 
     if request.method == 'POST':
         if obj.item_type == 1 or obj.item_type == 2:
@@ -157,7 +165,7 @@ def item_page(request: WSGIRequest, url):
 
             profile.items += new.item_unique_id + " "
             if obj.item_price > profile.balance:
-                None
+                messages.add_message(request, messages.INFO, "Денег нет купить не можешь")
             else:
                 profile.balance -= obj.item_price
             profile.save()

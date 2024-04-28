@@ -12,6 +12,14 @@
     <span style="font-weight: 300; font-size: 19px;">{{ item.item_price }}</span>
   </v-card-title>
 
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+
   <v-card-actions>
     <v-btn class="buy_btn" style="color: #FF9800;" href="/item/{{ item.item_url }}" density="50">
         Купить
