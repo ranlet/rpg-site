@@ -10,7 +10,7 @@
 <body>
 
 
-<v-card variant="flat" style="position: fixed; min-width: 200px; width: 5%; height: 100%; z-index: 10000; background: #1C1A24; color: white; top: 0; margin-top: 60px">
+<v-card variant="flat" class="footer_block">
   <div style="width: 100%;">
     <v-tabs
           v-model="tab"
@@ -52,7 +52,7 @@
         :items="['1']"
         class="pretty_scroll"
       >
-        <div style="height: 800px; background-color: #282633;">
+        <div class="content_block">
           {% for block in skins %}
             <div style="display: flex; background-color: #282633;">
               {% for item in block %}
@@ -72,7 +72,7 @@
         :items="['1']"
         class="pretty_scroll"
       >
-        <div style="height: 800px; background-color: #282633;">
+        <div class="content_block">
           {% for block in weapons %}
             <div style="display: flex; background-color: #282633;">
               {% for item in block %}

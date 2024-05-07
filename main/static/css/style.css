@@ -109,6 +109,7 @@ header{
   height: 50px;
   background-color: #403D4D;
   transition: 300ms;
+  color: #FF9800;
 }
 
 .buy_btn:hover {
@@ -172,4 +173,30 @@ header{
 .logout_btn:active {
   opacity: 0.3;
   transition: 150ms;
+}
+
+.profile_container {
+  background-color: rgba(0,0,0, 0.5);
+  box-shadow: 0 0 15px rgba(0,0,0, 0.4);
+  border-radius: 10px;
+  backdrop-filter: blur(20px);
+  color: white;
+}
+
+.footer_block {
+  position: fixed;
+  min-width: 200px;
+  width: 5%;
+  height: 100%;
+  z-index: 10000;
+  background: #1C1A24;
+  color: white;
+  top: 0;
+  margin-top: 60px
+}
+
+.content_block {
+  height: 800px;
+  background-color: #282633;
+  margin-top: -1px;
 }
