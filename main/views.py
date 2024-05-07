@@ -1,3 +1,4 @@
+from django.utils.functional import SimpleLazyObject
 from django.contrib.auth.models import User
 from main.models import Profile, Item, Inventory
 from django.core.handlers.wsgi import WSGIRequest
@@ -55,6 +56,8 @@ def login_page(request: WSGIRequest):
     }
 
     if request.method == 'GET':
+        if request.user.username:
+            return redirect('/')
         return render(request, 'registration/login.html', context)
 
     if 'logname' in request.POST and 'logpass' in request.POST:
@@ -246,6 +249,7 @@ def withdraw_func(request: WSGIRequest, url):
     return redirect('/inventory')
 
 
+@login_required
 def buy_page(request: WSGIRequest, url):
     user = User.objects.get(username=request.user.username)
     profile = Profile.objects.get(user=request.user)
