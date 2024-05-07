@@ -154,3 +154,22 @@ header{
   background-color: #403D4D;
   transition: 300ms;
 }
+
+.logout_btn {
+  color: white;
+  opacity: 0.6;
+  position: absolute;
+  top: 14px;
+  right: 12px;
+  transition: 150ms;
+}
+
+.logout_btn:hover {
+  opacity: 1;
+  transition: 150ms;
+}
+
+.logout_btn:active {
+  opacity: 0.3;
+  transition: 150ms;
+}
