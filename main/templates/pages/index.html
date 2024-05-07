@@ -60,9 +60,10 @@
     <v-window-item value="option-1">
 
       <v-virtual-scroll
-        :height="800"
+        :height="810"
         :items="['1']"
         class="pretty_scroll"
+        id="first_scroll"
       >
         <div style="height: 800px; background-color: #282633; margin-top: -1px;">
           {% for block in skins %}
@@ -80,7 +81,7 @@
     <v-window-item value="option-2">
 
       <v-virtual-scroll
-        :height="800"
+        :height="810"
         :items="['1']"
         class="pretty_scroll"
       >
@@ -100,7 +101,7 @@
     <v-window-item value="option-3">
 
       <v-virtual-scroll
-        :height="800"
+        :height="810"
         :items="['1']"
         class="pretty_scroll"
       >
@@ -120,7 +121,7 @@
     <v-window-item value="option-4">
 
       <v-virtual-scroll
-        :height="800"
+        :height="810"
         :items="['1']"
         class="pretty_scroll"
       >
@@ -142,4 +143,17 @@
 
 </body>
 <script src="../static/js/script.js"></script>
+<script>
+  'use strict';
+  {% for msg in messages %}
+  Swal.fire({
+    position: "top-end",
+    title: 'Уведомление',
+    text: '{{ msg }}',
+    icon: '{{ msg.tags }}',
+    showConfirmButton: false,
+  });
+  {% endfor %}
+
+</script>
 </html>

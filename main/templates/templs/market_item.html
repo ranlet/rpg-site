@@ -10,7 +10,12 @@
   <v-card-title>
     {{ item.item.item_name }}<br>
     Цена: <span style="color: orange">{{ item.item_price }}</span><br>
-    <span style="font-weight: 600; font-size: 15px;">Продавец: <span style="color: green">{{ item.item_owner.username }}</span></span><br>
+    <span style="font-weight: 600; font-size: 15px;">
+      Продавец:
+      <span style="color: green">{{ item.item_owner.username }}</span>
+      {% if request.user == item.item_owner %}(Вы){% else %}{% endif %}
+    </span>
+    <br>
     <span style="font-weight: 600; font-size: 14px; opacity: 0.5;">id предмета: {{ item.item_unique_id }}</span>
   </v-card-title>
 

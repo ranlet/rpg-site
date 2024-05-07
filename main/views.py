@@ -4,7 +4,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib import messages
 from main.tools.tools import default_data, register, list_splitter, get_random_name
 
 
@@ -17,7 +17,9 @@ def index_page(request: WSGIRequest):
 
     skins = []
     weapons = []
+    market = []
     obj_str = profile.items.strip().split()
+    goods = Inventory.objects.filter(on_market=True)
 
     for skin in default_skins:
         if skin.item_url not in obj_str:
@@ -25,6 +27,9 @@ def index_page(request: WSGIRequest):
     for weapon in default_weapons:
         if weapon.item_url not in obj_str:
             weapons.append(weapon)
+    for item in goods:
+        if item.on_market and request.user != item.item_owner:
+            market.append(item)
 
     context = {
         'pagename': 'Покупка предметов',
@@ -33,7 +38,7 @@ def index_page(request: WSGIRequest):
         'money': list_splitter(def_data['money']),
         'skins': list_splitter(skins),
         'weapons': list_splitter(weapons),
-        'market': list_splitter(Inventory.objects.filter(on_market=True))
+        'market': list_splitter(market)
     }
     return render(request, 'pages/index.html', context)
 
@@ -46,7 +51,7 @@ def logout_page(request):
 
 def login_page(request: WSGIRequest):
     context = {
-        'err_reason': 0
+
     }
 
     if request.method == 'GET':
@@ -59,9 +64,8 @@ def login_page(request: WSGIRequest):
         if user is not None:
             login(request, user)
             return redirect('/')
-        return render(request, 'registration/login.html', {
-            'err_reason': 1
-        })
+        messages.error(request, "Неправильный логин или пароль")
+        return render(request, 'registration/login.html', context)
 
     elif 'regname' in request.POST and 'regpass' in request.POST:
         username = request.POST['regname']
@@ -91,13 +95,11 @@ def login_page(request: WSGIRequest):
             profile = Profile()
             profile.user = user
             profile.save()
-            return render(request, 'registration/login.html', {
-                'err_reason': 3
-            })
+            messages.success(request, "Вы успешно зарегистрировались!")
+            return render(request, 'registration/login.html', context)
         else:
-            return render(request, 'registration/login.html', {
-                'err_reason': 2
-            })
+            messages.warning(request, "Пользователь с таким именем существует")
+            return render(request, 'registration/login.html', context)
 
     return render(request, 'registration/login.html', context)
 
@@ -130,6 +132,7 @@ def profile_page(request: WSGIRequest):
             'profile': profile
         }
 
+        messages.success(request, "Изменения применены!")
         return render(request, 'pages/profile.html', context)
 
     return render(request, 'pages/profile.html', context)
@@ -149,18 +152,21 @@ def item_page(request: WSGIRequest, url):
 
     if request.method == 'POST':
         if obj.item_type == 1 or obj.item_type == 2:
+            if profile.balance >= obj.item_price:
+                new = Inventory.objects.create(  # Создание уникального предмета
+                    item=obj,
+                    item_owner=user,
+                    item_unique_id=get_random_name(12),
+                )
 
-            new = Inventory.objects.create(  # Создание уникального предмета
-                item=obj,
-                item_owner=user,
-                item_unique_id=get_random_name(12),
-            )
-
-            profile.items += new.item_unique_id + " "
-            profile.balance -= obj.item_price
-            profile.save()
-
-            return redirect('/')
+                profile.items += new.item_unique_id + " "
+                profile.balance -= obj.item_price
+                profile.save()
+                messages.success(request, f"Товар {obj.item_name} успешно приобретён!")
+                return redirect('/')
+            else:
+                messages.error(request, "Недостаточно средств!")
+                return redirect('/')
 
         elif obj.item_type == 3:
             profile.balance += obj.item_price
@@ -217,5 +223,43 @@ def sell_page(request: WSGIRequest, url):
         obj.item_price = int(request.POST['price'])
         obj.on_market = True
         obj.save()
+        messages.success(request, f"Товар {obj.item.item_name} теперь на маркете!")
+        return redirect('/inventory')
 
     return render(request, 'pages/sell.html', context)
+
+
+@login_required
+def withdraw_func(request: WSGIRequest, url):
+    user = User.objects.get(username=request.user.username)
+    profile = Profile.objects.get(user=request.user)
+    obj = Inventory.objects.get(item_unique_id=url)
+
+    if user == obj.item_owner:
+        obj.on_market = False
+        obj.save()
+    else:
+        messages.error(request, f"Товар {obj.item.item_name} принадлежит другому пользователю!")
+        return redirect('/inventory')
+
+    messages.warning(request, f"Товар {obj.item.item_name} снят с продажи!")
+    return redirect('/inventory')
+
+
+def buy_page(request: WSGIRequest, url):
+    user = User.objects.get(username=request.user.username)
+    profile = Profile.objects.get(user=request.user)
+
+    obj = Inventory.objects.get(item_unique_id=url)
+
+    seller = Profile.objects.get(user=obj.item_owner)
+    print(seller.user.username)
+
+    context = {
+        'user': user,
+        'profile': profile,
+        'seller': seller,
+        'item': obj,
+    }
+
+    return render(request, 'pages/buy.html', context)

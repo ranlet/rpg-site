@@ -9,13 +9,24 @@
 
   <v-card-title>
     {{ item.item.item_name }}<br>
-    <span style="font-weight: 600; font-size: 13px; opacity: 0.2;">Уникальный id: {{ item.item_unique_id }}</span>
+    {% if item.on_market %}
+    <span style="font-weight: 400; font-size: 17px;">Цена: {{ item.item_price }}</span><br>
+    {% else %}
+    <span style="font-weight: 400; font-size: 17px; opacity: 0.6;">Не продаётся</span><br>
+    {% endif %}
+    <span style="font-weight: 600; font-size: 13px; opacity: 0.2;">Уникальный id: {{ item.item_unique_id }}</span><br>
   </v-card-title>
 
   <v-card-actions>
+    {% if item.on_market %}
+    <v-btn class="cancel_btn" style="height: 50px;" color="red" href="/withdraw/{{ item.item_unique_id }}">
+        Снять с продажи
+    </v-btn>
+    {% else %}
     <v-btn class="sold_btn" style="height: 50px;" href="/sell/{{ item.item_unique_id }}" color="green">
         Продать
     </v-btn>
+    {% endif %}
   </v-card-actions>
 
 </div>

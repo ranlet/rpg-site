@@ -25,46 +25,43 @@
     <v-file-input theme="light" name="filename" label="Файл изображения" variant="outlined"  style="margin: 30px 0 5px 0; border-radius: 20px; width: 100%" accept="image/*"></v-file-input>
     <v-text-field name="firstname" label="Текущее имя: {{ user.first_name }}" variant="outlined" style="margin-top: 5px; border-radius: 20px; width: 100%"></v-text-field>
     <v-text-field name="lastname" label="Текущая фамилия: {{ user.last_name }}" variant="outlined" style="margin-top: 5px; margin-bottom: 5px; border-radius: 20px; width: 100%"></v-text-field>
-
-
-
-
-
-
-
-
-
-
-    <v-dialog max-width="500">
-      <template v-slot:activator="{ props: activatorProps }">
-        <v-btn append-icon="mdi-content-save-all" theme="light" v-bind="activatorProps">
-          Применить
-        </v-btn>
-      </template>
-
-      <template v-slot:default="{ isActive }">
-        <v-card title="Профиль">
-          <v-card-text>
-            Сохранить изменения?
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn type="submit" form="frm" style="background-color: white; color: black;">
-              Сохранить
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </template>
-    </v-dialog>
-
-
-
-
+    <v-btn append-icon="mdi-content-save-all" theme="light" v-bind="activatorProps" id="ok_btn">
+      Применить
+    </v-btn>
   </v-card>
 
 </form>
 
 </body>
 <script src="../static/js/script.js"></script>
+<script>
+  'use strict';
+  ok_btn.addEventListener('click', function() {
+    Swal.fire({
+      title: 'Редактор',
+      text: 'Применить изменения?',
+      icon: 'question',
+      confirmButtonText: "Применить",
+      showCancelButton: true,
+      cancelButtonText: "Отмена",
+      background: "#312F3D",
+      color: "#FFF",
+    });
+    let second = document.querySelector(".swal2-confirm.swal2-styled");
+    second.style.width = "130px";
+    second.addEventListener('click', function() {
+      frm.submit();
+    });
+  });
+
+  {% for msg in messages %}
+  Swal.fire({
+    position: "top-end",
+    title: 'Успешно',
+    text: '{{ msg }}',
+    icon: '{{ msg.tags }}',
+    showConfirmButton: false,
+  });
+  {% endfor %}
+</script>
 </html>

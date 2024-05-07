@@ -12,7 +12,7 @@
     <v-menu min-width="200px" rounded>
       <template v-slot:activator="{ props }">
         <v-btn icon v-bind="props">
-          <v-avatar color="brown" size="large">
+          <v-avatar color="white" size="large">
             <v-img
               alt="Avatar"
               src="{% if profile.image %}{{ profile.image.url }}{% else %}https://cdn.vuetifyjs.com/images/parallax/material.jpg{% endif %}"
@@ -20,28 +20,26 @@
           </v-avatar>
         </v-btn>
       </template>
-      <v-card>
+      <div style="background-color: rgba(0,0,0, 0.5); box-shadow: 0 0 15px rgba(0,0,0, 0.4); border-radius: 10px; backdrop-filter: blur(20px); color: white;">
+        <a href="../logout" style="color: white; position: absolute; top: 15px; right: 10px;"><v-icon size="x-large" icon="mdi-logout"></v-icon></a>
         <v-card-text>
           <div class="mx-auto text-center">
-            <v-avatar color="brown">
+            <v-avatar color="white" style="width: 80px; height: 80px; margin: 0 0 10px 0">
               <v-img
                 alt="Avatar"
                 src="{% if profile.image %}{{ profile.image.url }}{% else %}https://cdn.vuetifyjs.com/images/parallax/material.jpg{% endif %}"
               ></v-img>
             </v-avatar>
             <h3>{{ user.first_name }} {{ user.last_name }}</h3>
-            <p class="text-caption mt-1">{{ user.email }}</p>
+            <p class="text-caption mt-1" style="font-size: 14px;">{{ user.email }}</p>
             <v-divider class="my-3"></v-divider>
             <p class="text-h6" style="font-family: 'JetBrains Mono'">Баланс: {{ profile.balance }}</p>
             <v-divider class="my-3"></v-divider>
-            <a href="../profile" style="color: primary;"><v-btn variant="text" rounded>Редактировать профиль</v-btn></a>
+            <a href="../profile" style="color: primary;"><v-btn variant="text" rounded><span style="font-size: 16px; letter-spacing: 2px; opacity: 0.9; font-weight: 700">Редактировать профиль</span></v-btn></a>
             <v-divider class="my-3"></v-divider>
-            <a href="../inventory" style="color: green;"><v-btn variant="text" rounded>Инвентарь</v-btn></a>
-            <v-divider class="my-3"></v-divider>
-            <a href="../logout" style="color: red;"><v-btn variant="text" rounded>Выйти</v-btn></a>
-          </div>
+            <a href="../inventory" style="color: green;"><v-btn variant="text" rounded><span style="font-size: 18px; letter-spacing: 1.5px; opacity: 0.9; font-weight: 700">Инвентарь</span></v-btn></a>          </div>
         </v-card-text>
-      </v-card>
+      </div>
     </v-menu>
   </v-row>
 </v-container>

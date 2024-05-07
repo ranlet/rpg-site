@@ -56,10 +56,7 @@
           {% for block in skins %}
             <div style="display: flex; background-color: #282633;">
               {% for item in block %}
-                  {% if not item.on_market %}
-                      {% include "../templs/inventory_item.html" %}
-                  {% else %}
-                  {% endif %}
+                  {% include "../templs/inventory_item.html" %}
               {% endfor %}
             </div>
           {% endfor %}
@@ -79,10 +76,7 @@
           {% for block in weapons %}
             <div style="display: flex; background-color: #282633;">
               {% for item in block %}
-                  {% if not item.on_market %}
-                      {% include "../templs/inventory_item.html" %}
-                  {% else %}
-                  {% endif %}
+                  {% include "../templs/inventory_item.html" %}
               {% endfor %}
             </div>
           {% endfor %}
@@ -97,4 +91,18 @@
 
 </body>
 <script src="../static/js/script.js"></script>
+<script>
+  'use strict';
+
+  {% for msg in messages %}
+  Swal.fire({
+    position: "top-end",
+    title: 'Успешно',
+    text: '{{ msg }}',
+    icon: '{{ msg.tags }}',
+    showConfirmButton: false,
+  });
+  {% endfor %}
+
+</script>
 </html>

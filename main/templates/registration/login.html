@@ -49,36 +49,26 @@
 
         </v-card-text>
 
-
       </v-card>
-      {% if err_reason == 1 %}
-      <v-alert
-        color="error"
-        icon="$error"
-        title="Неправильный логин или пароль"
-        text="Введите правильный логин и пароль или зарегистрируйтесь"
-        style="z-index: 50000; width: 100%; margin-top: 20px;"
-      ></v-alert>
-      {% elif err_reason == 2 %}
-      <v-alert
-        color="warning"
-        icon="$warning"
-        title="Пользователь с таким именем существует"
-        text="Придумайте другой логин"
-        style="z-index: 50000; width: 100%; margin-top: 20px;"
-      ></v-alert>
-      {% elif err_reason == 3 %}
-      <v-alert
-        color="success"
-        icon="$success"
-        title="Вы успешно зарегистрировались!"
-        text="Для входа введите ваш логин и пароль"
-        style="z-index: 50000; width: 100%; margin-top: 20px;"
-      ></v-alert>
-      {% else %}
-      {% endif %}
     </div>
 
 </body>
+
 <script src="../static/js/script.js"></script>
+<script>
+  'use strict';
+
+  {% for msg in messages %}
+  Swal.fire({
+    title: '{{ msg }}',
+    text: {% if msg.tags == "error" %}"Введите правильный логин и пароль или зарегистрируйтесь"
+          {% elif msg.tags == "warning" %}"Придумайте другой логин"
+          {% else %}"Для входа введите ваш логин и пароль"
+          {% endif %},
+    icon: '{{ msg.tags }}',
+    confirmButtonText: 'Продолжить'
+  });
+  {% endfor %}
+
+</script>
 </html>

@@ -20,8 +20,8 @@ def get_random_name(n):  # Функция для генерации случай
 def default_data():
     url_len = 10
     def_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    if not Item.objects.filter(item_type=1):  # Создание заглушек
-        for i in range(30):
+    if not Item.objects.filter(item_type=1):
+        for i in range(30):  # Создание заглушек
             Item.objects.create(
                 item_url=get_random_name(url_len),
                 item_name=f"Скин-заглушка {i}",
@@ -32,33 +32,37 @@ def default_data():
             )
 
     if not Item.objects.filter(item_type=2):
-        Item.objects.create(
-            item_url=get_random_name(url_len),
-            item_name="Посох",
-            item_image="../static/default_img/magic.png",
-            item_description="Волшебный посох",
-            item_type=2,
-            item_price=3000
-        )
+        def_weapons = [
+            {
+                "name": "Посох",
+                "description": "Волшебный посох",
+                "image": "../static/default_img/magic.png",
+                "price": 3000,
+            },
+            {
+                "name": "Меч",
+                "description": "Большой меч",
+                "image": "../static/default_img/blade.png",
+                "price": 5000
+            },
+            {
+                "name": "Пистолет",
+                "description": "Мощный пистолет",
+                "image": "../static/default_img/pistol.png",
+                "price": 1000
+            }
+        ]
+        for item in def_weapons:
+            Item.objects.create(
+                item_url=get_random_name(url_len),
+                item_name=item["name"],
+                item_image=item["image"],
+                item_description=item["description"],
+                item_type=2,
+                item_price=item["price"]
+            )
 
-        Item.objects.create(
-            item_url=get_random_name(url_len),
-            item_name="Меч",
-            item_image="../static/default_img/blade.png",
-            item_description="Большой меч",
-            item_type=2,
-            item_price=5000
-        )
-
-        Item.objects.create(
-            item_url=get_random_name(url_len),
-            item_name="Пистолет",
-            item_image="../static/default_img/pistol.png",
-            item_description="Мощный пистолет",
-            item_type=2,
-            item_price=1000
-        )
-        for i in range(30):
+        for i in range(30):  # Создание заглушек
             Item.objects.create(
                 item_url=get_random_name(url_len),
                 item_name=f"Оружие-заглушка {i}",
