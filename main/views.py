@@ -255,9 +255,33 @@ def buy_page(request: WSGIRequest, url):
     profile = Profile.objects.get(user=request.user)
 
     obj = Inventory.objects.get(item_unique_id=url)
-
     seller = Profile.objects.get(user=obj.item_owner)
-    print(seller.user.username)
+
+    check_available = (obj.item_unique_id in seller.items) and not (obj.item_unique_id in profile.items)
+    check_money = profile.balance >= obj.item_price
+    # print(seller.user.username)
+
+    if request.method == 'POST':
+        if check_money:
+            if check_available and obj.on_market:
+                obj.item_owner = user
+                obj.on_market = False
+                profile.balance -= obj.item.item_price
+                profile.items += ' ' + obj.item_unique_id
+                seller.balance += obj.item.item_price
+                seller.items = (seller.items).replace(obj.item_unique_id, '')
+
+                profile.save()
+                seller.save()
+                obj.save()
+                messages.success(request, f"Товар {obj.item.item_name} приобретён!")
+                return redirect('/')
+            else:
+                messages.error(request, "Товар продан либо снят с продажи!")
+                return redirect('/')
+        else:
+            messages.error(request, "Недостаточно средств!")
+            return redirect('/')
 
     context = {
         'user': user,
