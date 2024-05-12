@@ -5,8 +5,19 @@
   {% include "../templs/style.html" %}
 </head>
 </head>
-<body>
-  <div>
+<body style="height: 500px; background: rgb(54,87,251);
+background: radial-gradient(circle, rgba(54,87,251,1) 0%, rgba(49,47,61,1) 100%);">
+
+  <div style="box-shadow: 0 0 25px black; text-align: center; color: #fff; background-color: #312f3d; border-radius: 10px; width: 50%; margin: auto; padding:15px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <p style="font-family: JetBrains Mono;">
+      Dogot – это многопользовательская онлайн игра в жанре MOBA, созданная по образу и подобию популярной игры Dota 2. В игре вы сможете выбирать одного из множества героев с уникальными способностями и умениями, чтобы сражаться с другими игроками в командных боях.
+      <br>
+      <br>
+      Dogot предлагает вам разнообразные карты и режимы игры, а также возможность настраивать своего героя с помощью скинов и предметов. Вы сможете строить стратегии, координироваться с командой, улучшать свои навыки и повышать уровень своего героя, чтобы стать настоящим профессионалом в мире Dogot.
+      <br>
+      <br>
+      Примите участие в захватывающих сражениях, разработайте тактику, которая приведет вашу команду к победе, и станьте легендой в мире Dogot!
+    </p>
     <v-img
       class="align-end text-white"
       src="../static/default_img/icon.png"
@@ -14,8 +25,11 @@
       cover
     >
     </v-img>
-    <v-btn href="/login" variant="tonal" color="red">
+    <v-btn href="/login" variant="tonal" color="red" style="height: 60px; width: 100%; font-size: 23px; margin-top:20px">
       Войти
+    </v-btn>
+    <v-btn href="https://gitlab.informatics.ru/2023-2024/mytischi/s105/godot_rpg" variant="tonal" color="green" style="height: 60px; width: 100%; font-size: 23px; margin-top:20px">
+      Ссылка на репозиторий игры
     </v-btn>
   </div>
 
