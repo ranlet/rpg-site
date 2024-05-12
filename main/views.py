@@ -162,7 +162,7 @@ def item_page(request: WSGIRequest, url):
                     item_unique_id=get_random_name(12),
                 )
 
-                profile.items += new.item_unique_id + " "
+                profile.items += " " + new.item_unique_id + " "
                 profile.balance -= obj.item_price
                 profile.save()
                 messages.success(request, f"Товар {obj.item_name} успешно приобретён!")
@@ -186,7 +186,7 @@ def inventory_page(request: WSGIRequest):
 
     skins = []
     weapons = []
-    obj_str = profile.items.strip().split()
+    obj_str = profile.items.strip().replace("  ", " ").split()
 
     print(obj_str)
 
@@ -265,9 +265,9 @@ def buy_page(request: WSGIRequest, url):
         if check_money:
             if check_available and obj.on_market:
                 obj.item_owner = user
-                obj.on_market = False
                 profile.balance -= obj.item.item_price
-                profile.items += ' ' + obj.item_unique_id
+                profile.items += " " + obj.item_unique_id + " "
+                obj.on_market = False
                 seller.balance += obj.item.item_price
                 seller.items = (seller.items).replace(obj.item_unique_id, '')
 
