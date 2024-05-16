@@ -291,3 +291,9 @@ def buy_page(request: WSGIRequest, url):
     }
 
     return render(request, 'pages/buy.html', context)
+
+
+def main_page(request: WSGIRequest):
+    context = {
+    }
+    return render(request, 'pages/main_page.html', context)

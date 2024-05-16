@@ -200,3 +200,10 @@ header{
   background-color: #282633;
   margin-top: -1px;
 }
+
+#space {
+  background-color: #000;
+  height: 100vh;
+  position: absolute;
+  width: 100vw;
+}

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Магазин</title>
+  {% include "../templs/style.html" %}
+</head>
+</head>
+<body style="height: 100%; width: 100%; background-color: black; font-size: 20px">
+  <canvas id="space" height="1" width="1"></canvas>
+  <div style="box-shadow: 0 0 25px black; text-align: center; color: #fff; background-color: rgba(49,47,61, 0.5); border-radius: 10px; width: 1000px; margin: auto; padding:15px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); backdrop-filter: blur(3px);">
+    <p>
+      Dogot – это многопользовательская онлайн игра в жанре MOBA, созданная по образу и подобию популярной игры Dota 2. В игре вы сможете выбирать одного из множества героев с уникальными способностями и умениями, чтобы сражаться с другими игроками в командных боях.
+    </p>
+    <p>
+      Dogot предлагает вам разнообразные карты и режимы игры, а также возможность настраивать своего героя с помощью скинов и предметов. Вы сможете строить стратегии, координироваться с командой, улучшать свои навыки и повышать уровень своего героя, чтобы стать настоящим профессионалом в мире Dogot.
+    </p>
+    <p>
+      Примите участие в захватывающих сражениях, разработайте тактику, которая приведет вашу команду к победе, и станьте легендой в мире Dogot!
+    </p>
+    <v-img
+      class="align-end text-white"
+      src="../static/default_img/icon.png"
+      style="width: 150px; height: 150px; margin: auto"
+      cover
+    >
+    </v-img>
+    <div style="width: 100%; display: flex;">
+      <div style="width: 50%">
+        <v-btn href="/login" variant="tonal" color="red" style="height: 60px; width: 95%; font-size: 23px; margin-top: 30px">
+          Войти
+        </v-btn>
+      </div>
+
+      <div style="width: 50%">
+        <v-btn href="https://gitlab.informatics.ru/2023-2024/mytischi/s105/godot_rpg" variant="tonal" color="green" style="height: 60px; width: 95%; font-size: 23px; margin-top: 30px">
+          Ссылка на репозиторий игры
+        </v-btn>
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+</body>
+<script src="../static/js/script.js"></script>
+<script src="../static/js/StarFieldCanvas.js"></script>
+<script>
+    /**
+   * Example of usage with some extra stuff to test the config on the fly
+   */
+
+  // Canvas element to use - style/position this with CSS
+  var canvasId = 'space'; // required
+
+  // If you enable 'followMouse' and need mousemove on different element to canvas
+  // var followContext = window; // optional, default 'this.canvas' in class
+
+  // Illusion of changing view direction due to mouse pos
+  var followMouse = false; // optional, default false
+
+  // Star color
+  var color = {
+      r: 255,
+      g: 255,
+      b: 255
+  }; // optional, default 255, 255, 255
+
+  // Subtle glow with canvas shadow - performance drain
+  var glow = false; // optional, default false
+
+  // Min velocity range
+  var minV = 1; // optional, default 2
+
+  // Max velocity range
+  var maxV = 1; // optional, default 5
+
+  // Perforance starts to degrade beyond around 1500 stars, system-dependent
+  var numStars = 1000; // optional, default 400
+
+  // Subtle trail lines which help the illusion of speed
+  var trails = true; // optional, default false
+
+  // Setup the Starfield
+  // var starfield = new Starfield.Starfield(canvasId); // Run with defaults
+  var starfield = new StarFieldCanvas.StarField(canvasId, {
+      // followContext: followContext
+      followMouse: followMouse,
+      color: color,
+      glow: glow,
+      minV: minV,
+      maxV: maxV,
+      numStars: numStars,
+      trails: trails
+  });
+
+  // Make stars happen
+  starfield.start();
+
+
+  // == Demo config stuff below - not needed for usage ==
+
+  // Get config edit fields and set current defaults
+  var txtNumStars = document.getElementById('ctrlNumStars');
+  txtNumStars.value = numStars.toString();
+  var txtMaxV = document.getElementById('ctrlMaxV');
+  txtMaxV.value = maxV.toString();
+  var txtMinV = document.getElementById('ctrlMinV');
+  txtMinV.value = minV.toString();
+  var chkMouse = document.getElementById('ctrlMouse');
+  chkMouse.checked = followMouse;
+
+  // Some key events for the config test form
+  txtNumStars.onkeyup = function () {
+      starfield.setNumStars(parseInt(txtNumStars.value));
+  };
+  txtMaxV.onkeyup = function () {
+      starfield.setMaxV(parseInt(txtMaxV.value));
+  };
+  txtMinV.onkeyup = function () {
+      starfield.setMinV(parseInt(txtMinV.value));
+  };
+  chkMouse.onchange = function () {
+      starfield.setFollowMouse(chkMouse.checked);
+  };
+</script>
+</html>

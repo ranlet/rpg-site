@@ -16,5 +16,6 @@ urlpatterns = [
     path('inventory/', views.inventory_page, name='inventory'),
     path('sell/<str:url>', views.sell_page, name='sell'),
     path('withdraw/<str:url>', views.withdraw_func, name='withdraw'),
-    path('buy/<str:url>', views.buy_page, name='buy')
+    path('buy/<str:url>', views.buy_page, name='buy'),
+    path('hello/', views.main_page, name='hello')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
