@@ -11,17 +11,6 @@ body {
 }
 
 
-.form {
-  position: relative;
-  border-radius: 10px;
-  max-width: 500px;
-  min-height: 350px;
-  padding: 15px;
-  margin: 20px auto;
-  margin-top: 200px;
-
-}
-
 
 
 .exists {
@@ -206,4 +195,44 @@ header{
   height: 100vh;
   position: absolute;
   width: 100vw;
+}
+
+
+.hello_block {
+  box-shadow: 0 0 25px black;
+  text-align: center;
+  color: #fff;
+  background-color: rgba(49,47,61, 0.5);
+  border-radius: 10px;
+  width: 1000px;
+  margin: auto;
+  padding:15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  backdrop-filter: blur(3px);
+}
+
+
+.form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  backdrop-filter: blur(3px);
+  width: 450px;
+}
+
+
+.profile_block {
+  width: 750px;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px white;
+  color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

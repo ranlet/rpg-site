@@ -3,55 +3,41 @@
   <title>Войти</title>
   {% include "../templs/style.html" %}
 </head>
-<header>
-
-</header>
 <body>
+  <div class="form">
+    <v-card theme="dark" style="box-shadow: 0 0 30px #000;">
+      <v-tabs v-model="logregtab" bg-color="#5b6ee1">
+        <v-tab value="log">Войти</v-tab>
+        <v-tab value="reg">Регистрация</v-tab>
+      </v-tabs>
+      <v-card-text>
+        <v-window v-model="logregtab">
 
-    <div class="form">
+          <v-window-item value="log">
+            <form method="POST">
+              {% csrf_token %}
+              <v-text-field label="Логин" variant="solo-filled" name="logname" required></v-text-field>
+              <v-text-field type="password" label="Пароль" variant="solo-filled" name="logpass" required></v-text-field>
+              <v-btn variant="tonal" type="submit" style="width: 100%; margin-top: 15px; height: 50px; margin-top: 30px;">Войти</v-btn>
+            </form>
+          </v-window-item>
 
-      <v-card theme="dark" style="box-shadow: 0 0 30px #000;">
-        <v-tabs
-          v-model="logregtab"
-          bg-color="#5b6ee1"
+          <v-window-item value="reg">
+            <form method="POST">
+              {% csrf_token %}
+              <v-text-field label="Придумайте логин" variant="solo-filled" name="regname" required></v-text-field>
+              <v-text-field label="Придумайте пароль" variant="solo-filled" name="regpass" required></v-text-field>
+              <v-text-field label="Введите Имя" variant="solo-filled" name="regfirst"></v-text-field>
+              <v-text-field label="Введите Фамилию" variant="solo-filled" name="reglast"></v-text-field>
+              <v-btn variant="tonal" type="submit" style="width: 100%; margin-top: 15px; height: 50px; margin-top: 30px;">Зарегистрироваться</v-btn>
+            </form>
+          </v-window-item>
 
-        >
-          <v-tab value="log">Войти</v-tab>
-          <v-tab value="reg">Регистрация</v-tab>
-        </v-tabs>
-
-        <v-card-text>
-
-          <v-window v-model="logregtab">
-            <v-window-item value="log">
-              <form method="POST">
-                {% csrf_token %}
-                <v-text-field label="Логин" variant="solo-filled" name="logname" required></v-text-field>
-                <v-text-field type="password" label="Пароль" variant="solo-filled" name="logpass" required></v-text-field>
-                <v-btn variant="tonal" type="submit" style="width: 100%; margin-top: 15px; height: 50px; margin-top: 30px;">Войти</v-btn>
-              </form>
-
-
-            </v-window-item>
-
-            <v-window-item value="reg">
-              <form method="POST">
-                {% csrf_token %}
-                <v-text-field label="Придумайте логин" variant="solo-filled" name="regname" required></v-text-field>
-                <v-text-field label="Придумайте пароль" variant="solo-filled" name="regpass" required></v-text-field>
-                <v-text-field label="Введите Имя" variant="solo-filled" name="regfirst"></v-text-field>
-                <v-text-field label="Введите Фамилию" variant="solo-filled" name="reglast"></v-text-field>
-                <v-btn variant="tonal" type="submit" style="width: 100%; margin-top: 15px; height: 50px; margin-top: 30px;">Зарегистрироваться</v-btn>
-              </form>
-            </v-window-item>
-
-          </v-window>
-
-        </v-card-text>
-
-      </v-card>
-    </div>
-
+        </v-window>
+      </v-card-text>
+    </v-card>
+  </div>
+  <v-btn variant="plain" href="/hello" color="blue" style="position: absolute; bottom: 0; font-size: 18px; margin: 0 0 10px 10px;">Приветственная страница</v-btn>
 </body>
 
 <script src="../static/js/script.js"></script>

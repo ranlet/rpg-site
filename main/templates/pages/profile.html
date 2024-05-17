@@ -11,21 +11,18 @@
 
 <form method="POST" enctype="multipart/form-data" id="frm">
   {% csrf_token %}
-  <div style="position: relative; margin: 80px auto 15px auto; max-width: 750px; width: 70%; padding: 25px; border-radius: 10px; box-shadow: 0 0 10px white; color: white">
+  <div class="profile_block">
     <v-img
-      :width="250"
-      :height="250"
+      :width="230"
+      :height="230"
       aspect-ratio="1/1"
       cover
       src="{% if profile.image %}{{ profile.image.url }}{% else %}https://cdn.vuetifyjs.com/images/parallax/material.jpg{% endif %}"
       style="border-radius: 5px; margin: auto"
     ></v-img>
-    <p class="text-h6" style="margin-top: 25px; color: white; text-align: center;">
-      <span style="font-family: 'JetBrains Mono'; font-size: 25px;">Баланс: {{ profile.balance }}</span>
-    </p>
     <v-file-input theme="light" name="filename" label="Файл изображения" variant="outlined"  style="margin-top: 25px; border-radius: 20px; width: 100%" accept="image/*"></v-file-input>
     <v-text-field name="firstname" label="Текущее имя: {{ user.first_name }}" variant="outlined" style="border-radius: 20px; width: 100%"></v-text-field>
-    <v-text-field name="lastname" label="Текущая фамилия: {{ user.last_name }}" variant="outlined" style="margin-bottom: 5px; border-radius: 20px; width: 100%"></v-text-field>
+    <v-text-field name="lastname" label="Текущая фамилия: {{ user.last_name }}" variant="outlined" style="border-radius: 20px; width: 100%"></v-text-field>
     <v-btn append-icon="mdi-content-save-all" theme="light" v-bind="activatorProps" id="ok_btn" style="margin: auto; height: 60px; width: 100%; font-size: 20px">
       Применить
     </v-btn>
