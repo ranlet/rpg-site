@@ -1,9 +1,11 @@
+import random
 import secrets
 import string
 
 from django.contrib.auth.models import User
+from django.db.models import Q
 
-from main.models import Item
+from main.models import Item, Profile, Inventory
 
 
 def get_random_name(n):  # Функция для генерации случайных url/id длиной n символов для новых предметов
@@ -98,3 +100,49 @@ def register(username, email, password, first_name=None, last_name=None):
 def list_splitter(l):
     n = 6
     return [l[i:i + n] for i in range(0, len(l), n)]
+
+
+def def_profiles():
+    default_data()
+    users = User.objects.all()
+    if not users:
+        items = Item.objects.filter(~Q(item_type=3))
+        test = register(  # Тестовый аккаунт
+            "test",
+            "test" + '@rpg.proj',
+            "1234",
+            "Giga",
+            "Chad"
+        )
+        profile = Profile()
+        profile.user = test
+        profile.image = "../static/default_avatar/test.png"
+        profile.save()
+        names = ["alice", "bob", "frank"]
+        for name in names:
+            new = register(
+                name,
+                name + '@rpg.proj',
+                "1234",
+                name.upper(),
+                "TESTING"
+            )
+            prf = Profile()
+            prf.user = new
+            prf.image = f"../static/default_avatar/{name}.png"
+
+            for i in range(5):
+                rnd_item = random.choice(items)
+
+                new_item = Inventory.objects.create(  # Создание уникального предмета
+                    item=rnd_item,
+                    item_owner=new,
+                    item_unique_id=get_random_name(12),
+                    on_market=1,
+                    item_price=random.randint(1000, 5000)
+                )
+
+                new_item.save()
+                prf.items += " " + new_item.item_unique_id + " "
+
+            prf.save()

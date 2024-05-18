@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from main.tools.tools import default_data, register, list_splitter, get_random_name
+from main.tools.tools import default_data, register, list_splitter, get_random_name, def_profiles
 
 
 @login_required
@@ -51,6 +51,8 @@ def logout_page(request):
 
 
 def login_page(request: WSGIRequest):
+    def_profiles()
+
     context = {
 
     }
@@ -265,10 +267,10 @@ def buy_page(request: WSGIRequest, url):
         if check_money:
             if check_available and obj.on_market:
                 obj.item_owner = user
-                profile.balance -= obj.item.item_price
+                profile.balance -= obj.item_price
                 profile.items += " " + obj.item_unique_id + " "
                 obj.on_market = False
-                seller.balance += obj.item.item_price
+                seller.balance += obj.item_price
                 seller.items = (seller.items).replace(obj.item_unique_id, '')
 
                 profile.save()
